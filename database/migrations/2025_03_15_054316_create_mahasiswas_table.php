@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('jurusan', 50);
             $table->string('email', 50)->unique();
             $table->string('no_hp', 15);
-            $table->string('tempat_tanggal_lahir');
+            $table->string('tempat_tanggal_lahir')->nullable();
             $table->string('alamat', 100);
             $table->double('ipk',10);
             $table->string('foto', 100)->nullable();
