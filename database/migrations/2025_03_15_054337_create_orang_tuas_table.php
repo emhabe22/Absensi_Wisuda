@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('orang_tuas', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
