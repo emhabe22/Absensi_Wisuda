@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use App\Models\Mahasiswa;
 use App\Models\OrangTua;
 use App\Models\Panitia;
@@ -23,3 +24,8 @@ Route::get('/panitia', function () {
     $data = Panitia::all();
     return view('frontend.table-panitia',compact('data'));
 });
+Route::get('/input', function () {
+    return view('frontend.form-input');
+});
+Route::get('/absent', [MahasiswaController::class, 'absent'])->name('absent');
+Route::get('/absentOut', [MahasiswaController::class, 'absentOut'])->name('absentOut');
