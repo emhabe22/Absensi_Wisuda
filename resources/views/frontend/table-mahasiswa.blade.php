@@ -81,7 +81,7 @@
                                        <td>{{$mhs->jurusan}}</td>
                                        <td>{{$mhs->ipk}}</td>
                                        <td>
-    @if ($mhs->status)
+    @if ($mhs->status == true)
         <span class="btn btn-success btn-sm">Sudah Absen</span>
     @else
         <span class="btn btn-danger btn-sm">Belum Absen</span>

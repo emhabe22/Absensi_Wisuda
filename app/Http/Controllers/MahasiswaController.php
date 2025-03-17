@@ -14,21 +14,24 @@ class MahasiswaController extends Controller
     
     public function absent($nim){
         $data = Mahasiswa::where('nim', $nim)->first();
-        $data->update([
-            'status' => true
-        ]);
-        $data->save();
-        return redirect('/mahasiswa');
+        if($data->status == true){
+            $data->update([
+                'status' => false
+            ]);
+            $data->save();
+            return redirect('/input')->with('message', 'Kamu keluar ');
+        }
+        else {
+            $data->update([
+                'status' => true
+            ]);
+            $data->save();
+            return redirect('/mahasiswa');
+        }
+      
     }
 
-    public function absentOut($nim){
-        $data = Mahasiswa::where('nim', $nim)->first();
-        $data->update([
-            'status' => false
-        ]);
-        $data->save();
-        return redirect('/mahasiswa');
-    }
+   
 }
     
 
