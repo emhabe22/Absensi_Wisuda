@@ -11,7 +11,6 @@ use Endroid\QrCode\Writer\PngWriter;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -56,19 +55,22 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        foreach ($mahasiswa as &$mhs) {
-            $url = url('/input/' . $mhs['nim']); // URL untuk QR Code
-            $qrPath = 'qrcodes/' . $mhs['nim'] . '.svg'; // Simpan sebagai SVG
 
-            // Generate QR Code dalam format SVG
-            $qrCode = QrCode::format('svg')->size(200)->generate($url);
 
-            // Simpan SVG ke storage (public/storage/qrcodes/)
-            Storage::disk('public')->put($qrPath, $qrCode);
+foreach ($mahasiswa as &$mhs) {
+    $url = url('/absent/' . $mhs['nim']); // URL untuk QR Code
+    $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Simpan sebagai PNG
 
-            // Simpan path QR Code ke database
-            $mhs['qr_code'] = $qrPath;
-        }
-        Mahasiswa::insert($mahasiswa);
+    // Generate QR Code dalam format PNG tanpa Imagick
+    $qrCode = QrCode::format('png')->size(200)->errorCorrection('H')->generate($url);
+
+    // Simpan ke storage (public/storage/qrcodes/)
+    Storage::disk('public')->put($qrPath, $qrCode);
+
+    // Simpan path QR Code ke database
+    $mhs['qr_code'] = $qrPath;
+}
+
+          Mahasiswa::insert($mahasiswa);
     }
 }
