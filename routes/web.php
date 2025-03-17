@@ -23,7 +23,7 @@ Route::group(['middleware'], function () {
 // Mahasiswa
 Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa');
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('absent');
-Route::post('/absentOut', [MahasiswaController::class, 'absentOut'])->name('absentOut');
+Route::post('/absentOut/{nim}', [MahasiswaController::class, 'absentOut'])->name('absentOut');
 
 // Orang Tua
 Route::get('/orangtua', [OrangTuaController::class, 'orangtua'])->name('orangtua');

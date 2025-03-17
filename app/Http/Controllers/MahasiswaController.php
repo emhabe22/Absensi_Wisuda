@@ -12,8 +12,7 @@ class MahasiswaController extends Controller
         return view('frontend.table-mahasiswa', compact('data'));
     }
     
-    public function absent(Request $request){
-        $nim = $request->query('nim');
+    public function absent($nim){
         $data = Mahasiswa::where('nim', $nim)->first();
         $data->update([
             'status' => true
@@ -21,8 +20,8 @@ class MahasiswaController extends Controller
         $data->save();
         return redirect('/mahasiswa');
     }
-    public function absentOut(Request $request){
-        $nim = $request->query('nim');
+
+    public function absentOut($nim){
         $data = Mahasiswa::where('nim', $nim)->first();
         $data->update([
             'status' => false
