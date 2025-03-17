@@ -23,18 +23,18 @@
                     </div>
                     <div class="ms-auto">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Settings</button>
-                            <button type="button"
+                           
+                            <!-- <button type="button"
                                 class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
                                 data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
+                            </button> -->
+                            <!-- <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
                                     href="javascript:;">Action</a>
                                 <a class="dropdown-item" href="javascript:;">Another action</a>
                                 <a class="dropdown-item" href="javascript:;">Something else here</a>
                                 <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
                                     link</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -51,6 +51,7 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nama</th>
+                                        <th>Nama Orang Tua</th>
                                         <th>NIM</th>
                                         <th>NIK</th>
                                         <th>Email</th>
@@ -64,20 +65,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($data as $mhs)
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
+                                    <td>
+                                        <img src="{{ asset('storage/' . $mhs->foto) }}" alt="Foto Mahasiswa" width="100">
+                                    </td>
+                                       <td>{{$mhs->nama}}</td>
+                                       <td>{{$mhs->nama}}</td>
+                                       <td>{{$mhs->nim}}</td>
+                                       <td>{{$mhs->nik}}</td>
+                                       <td>{{$mhs->email}}</td>
+                                       <td>{{$mhs->no_hp}}</td>
+                                       <td>{{$mhs->tempat_tanggal_lahir}}</td>
+                                       <td>{{$mhs->alamat}}</td>
+                                       <td>{{$mhs->jurusan}}</td>
+                                       <td>{{$mhs->ipk}}</td>
+                                       <td>
+    @if ($mhs->status)
+        <span class="btn btn-success btn-sm">Sudah Absen</span>
+    @else
+        <span class="btn btn-danger btn-sm">Belum Absen</span>
+    @endif
+</td>
+<td>
+<a href="/edit-mahasiswa">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
+</td>
+
+
+
+
+
+
+
+
+
+
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

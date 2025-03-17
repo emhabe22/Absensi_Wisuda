@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Mahasiswa;
+use App\Models\OrangTua;
+use App\Models\Panitia;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,13 +10,16 @@ Route::get('/', function () {
 });
 
 Route::get('/mahasiswa', function () {
-    return view('frontend.table-mahasiswa');
+    $data = Mahasiswa::all();
+    return view('frontend.table-mahasiswa',compact('data'));
 });
 
 Route::get('/orangtua', function () {
-    return view('frontend.table-orangtua');
+    $data = OrangTua::all();
+    return view('frontend.table-orangtua',compact('data'));
 });
 
 Route::get('/panitia', function () {
-    return view('frontend.table-panitia');
+    $data = Panitia::all();
+    return view('frontend.table-panitia',compact('data'));
 });
