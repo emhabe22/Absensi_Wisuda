@@ -20,7 +20,7 @@
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Settings</button>
+                        <!-- <button type="button" class="btn btn-primary">Settings</button>
                         <button type="button"
                             class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
                             data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
@@ -31,7 +31,7 @@
                             <a class="dropdown-item" href="javascript:;">Something else here</a>
                             <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
                                 link</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -47,16 +47,30 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Nama Anak</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data as $parent)
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>Tiger Nixon</td>
-                                    <td>$320,800</td>
+                                    <td>{{$parent->nama}}</td>
+                                    <td></td>
+                                    <td>
+    @if ($parent->status)
+        <span class="btn btn-success btn-sm">Sudah Absen</span>
+    @else
+        <span class="btn btn-danger btn-sm">Belum Absen</span>
+    @endif
+</td>
+<td>
+<a href="/edit-orangtua">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
+</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

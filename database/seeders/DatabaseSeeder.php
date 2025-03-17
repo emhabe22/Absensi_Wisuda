@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($mahasiswa as &$mhs) {
-    $url = url('/scan/' . $mhs['nim']);
+    $url = url('/input/' . $mhs['nim']); // URL untuk QR Code
     $qrPath = 'qrcodes/' . $mhs['nim'] . '.svg'; // Simpan sebagai SVG
 
     // Generate QR Code dalam format SVG

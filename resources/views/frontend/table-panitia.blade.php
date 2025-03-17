@@ -20,18 +20,6 @@
                 </div>
                 <div class="ms-auto">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary">Settings</button>
-                        <button type="button"
-                            class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                                href="javascript:;">Action</a>
-                            <a class="dropdown-item" href="javascript:;">Another action</a>
-                            <a class="dropdown-item" href="javascript:;">Something else here</a>
-                            <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-                                link</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -52,11 +40,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data as $panitia)
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
+                                    <td>{{$panitia->nama}}</td>
+                                    <td>
+                                     @if ($mhs->status)
+                                    <span class="btn btn-success btn-sm">Sudah Absen</span>
+                                @else
+                                    <span class="btn btn-danger btn-sm">Belum Absen</span>
+                                @endif
+                                    </td>
+                                <td>
+                                <a href="/edit-mahasiswa">
+                               <button type="button" class="btn btn-primary">Edit</button>
+                                 </a>
+                                </td>
                                 </tr>
+                                @endforeach
                         </table>
                     </div>
                 </div>
