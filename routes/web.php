@@ -22,6 +22,8 @@ Route::group(['middleware'], function () {
 
 // Mahasiswa
 Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa');
+Route::get('/mahasiswa/edit/{nim}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
+Route::post('/mahasiswa/update/{nim}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('absent');
 Route::post('/absentOut/{nim}', [MahasiswaController::class, 'absentOut'])->name('absentOut');
 
@@ -33,4 +35,8 @@ Route::get('/panitia', [PanitiaController::class, 'panitia'])->name('panitia');
 
 Route::get('/input', function () {
     return view('frontend.form-input');
+});
+
+Route::get('/editmahasiswa', function () {
+    return view('frontend.edit');
 });
