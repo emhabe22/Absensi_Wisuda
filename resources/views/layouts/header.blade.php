@@ -32,13 +32,38 @@
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="javascript:;"><i
-                                class="bx bx-user"></i><span>Profile</span></a>
-                        <a class="dropdown-item" href="javascript:;"><i
-                                class="bx bx-power-off"></i><span>Logout</span></a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <!-- Tombol Logout -->
+                        <a class="dropdown-item" href="#" id="logout-btn">
+                            <i class="bx bx-power-off"></i><span>Logout</span>
+                        </a>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Mencegah logout langsung
+
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Anda akan keluar dari akun ini!",
+        icon: "warning", // Ikon peringatan
+        showCancelButton: true,
+        confirmButtonColor: "#d33", // Warna merah untuk konfirmasi
+        cancelButtonColor: "#3085d6", // Warna biru untuk batal
+        confirmButtonText: "Ya, Logout!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('logout-form').submit(); // Kirim formulir logout
+        }
+    });
+});
+</script>

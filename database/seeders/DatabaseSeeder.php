@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,6 +20,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin123'), // Pastikan password dienkripsi
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         $mahasiswa = [
             [
@@ -46,19 +57,18 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($mahasiswa as &$mhs) {
-    $url = url('/input/' . $mhs['nim']); // URL untuk QR Code
-    $qrPath = 'qrcodes/' . $mhs['nim'] . '.svg'; // Simpan sebagai SVG
+            $url = url('/input/' . $mhs['nim']); // URL untuk QR Code
+            $qrPath = 'qrcodes/' . $mhs['nim'] . '.svg'; // Simpan sebagai SVG
 
-    // Generate QR Code dalam format SVG
-    $qrCode = QrCode::format('svg')->size(200)->generate($url);
+            // Generate QR Code dalam format SVG
+            $qrCode = QrCode::format('svg')->size(200)->generate($url);
 
-    // Simpan SVG ke storage (public/storage/qrcodes/)
-    Storage::disk('public')->put($qrPath, $qrCode);
+            // Simpan SVG ke storage (public/storage/qrcodes/)
+            Storage::disk('public')->put($qrPath, $qrCode);
 
-    // Simpan path QR Code ke database
-    $mhs['qr_code'] = $qrPath;
-}
+            // Simpan path QR Code ke database
+            $mhs['qr_code'] = $qrPath;
+        }
         Mahasiswa::insert($mahasiswa);
-    
     }
 }

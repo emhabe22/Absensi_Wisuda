@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
+    public function mahasiswa(){
+        $data = Mahasiswa::all();
+        return view('frontend.table-mahasiswa', compact('data'));
+    }
+    
     public function absent(Request $request){
         $nim = $request->query('nim');
         $data = Mahasiswa::where('nim', $nim)->first();
