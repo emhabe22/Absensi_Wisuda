@@ -57,19 +57,26 @@ class DatabaseSeeder extends Seeder
 
 
 
-foreach ($mahasiswa as &$mhs) {
-    $url = url('/absent/' . $mhs['nim']); // URL untuk QR Code
-    $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Simpan sebagai PNG
-
-    // Generate QR Code dalam format PNG tanpa Imagick
-    $qrCode = QrCode::format('png')->size(200)->errorCorrection('H')->generate($url);
-
-    // Simpan ke storage (public/storage/qrcodes/)
-    Storage::disk('public')->put($qrPath, $qrCode);
-
-    // Simpan path QR Code ke database
-    $mhs['qr_code'] = $qrPath;
-}
+        foreach ($mahasiswa as &$mhs) {
+            $data = $mhs['nim']; // Hanya encode NIM tanpa URL
+            $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Path penyimpanan
+        
+            // Generate QR Code dengan setting optimal
+            $qrCode = QrCode::format('png')
+                ->size(400) // Ukuran lebih besar agar mudah dipindai
+                ->errorCorrection('H') // Tingkat error correction tinggi
+                ->margin(2) // Beri margin agar tidak terlalu rapat
+                ->color(0, 0, 0) // Warna hitam
+                ->backgroundColor(255, 255, 255) // Background putih
+                ->generate($data);
+        
+            // Simpan QR Code ke storage
+            Storage::disk('public')->put($qrPath, $qrCode);
+        
+            // Simpan path QR Code ke database
+            $mhs['qr_code'] = $qrPath;
+        }
+        
 
           Mahasiswa::insert($mahasiswa);
     }
