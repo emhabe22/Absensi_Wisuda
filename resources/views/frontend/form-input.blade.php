@@ -6,7 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan QR Code</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <style>
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal img {
+            width: 100%;
+            border-radius: 5px;
+        }
+    </style>
     <style>
         /* Reset dasar */
         * {
@@ -157,6 +184,13 @@
         @csrf
         <input type="hidden" name="nim" id="nim">
     </form>
+    <!-- Modal -->
+    <div id="gambarModal" class="modal">
+        <div class="modal-content">
+            <h3>Data Berhasil Diproses</h3>
+            <img id="gambarHasil" src="" alt="Gambar Hasil">
+        </div>
+    </div>
 
     <script>
         function onScanSuccess(decodedText) {
@@ -189,6 +223,33 @@
                 console.error("Tidak ada kamera yang tersedia.");
             }
         }).catch(err => console.error("Gagal mendeteksi kamera:", err));
+       //modal gambar
+       let gambarPath = "{{ session('gambar') }}";
+console.log("Path gambar:", gambarPath); // Debugging
+
+if (gambarPath && gambarPath !== '') {
+    let modal = document.getElementById("gambarModal");
+    let img = document.getElementById("gambarHasil");
+
+    img.src = gambarPath + "?t=" + new Date().getTime(); // Tambah timestamp untuk bypass cache
+
+    img.onload = function () {
+        console.log("Gambar berhasil dimuat:", img.src);
+        modal.style.display = "block"; // Tampilkan modal setelah gambar siap
+    };
+
+    img.onerror = function () {
+        console.error("Gagal memuat gambar:", img.src);
+    };
+
+    // Tutup modal setelah 5 detik
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 5000);
+}
+
+
+
     </script>
 
 </body>

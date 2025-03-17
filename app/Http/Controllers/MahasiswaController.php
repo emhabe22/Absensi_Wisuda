@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+require '../vendor/autoload.php';
 use App\Models\Mahasiswa;
-use Illuminate\Http\Request;
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Illuminate\Support\Facades\Session;
 class MahasiswaController extends Controller
 {
     public function mahasiswa(){
@@ -13,8 +14,48 @@ class MahasiswaController extends Controller
     }
     
     public function absent($nim){
-        $data = Mahasiswa::where('nim', $nim)->first();
-        if($data->status == true){
+    $data = Mahasiswa::where('nim', $nim)->first();
+        // Path template sertifikat/gambar
+    $templatePath = public_path('template/template.png'); 
+
+    // Path foto mahasiswa
+    $fotoPath = public_path('storage/foto/' . $nim . '.jpg'); 
+
+    // Buat gambar dari template
+    $manager = new ImageManager(new Driver());
+    
+    $img = $manager->read($templatePath);
+
+
+    // Tambahkan foto mahasiswa (resize dulu)
+    if (file_exists($fotoPath)) {
+        $foto = $manager->read($fotoPath)->resize(150, 150);
+        $img->place($foto, 'top-left', 100, 100); // Sesuaikan posisi
+    }
+
+    // Tambahkan Nama
+    $img->text($data->nama, 300, 200, function ($font) {
+        $font->file(public_path('fonts/arial.ttf'));
+        $font->size(50);
+        $font->color('#000');
+        $font->align('left');
+    });
+
+    // Tambahkan NIM
+    $img->text($data->nim, 300, 270, function ($font) {
+        $font->file(public_path('fonts/arial.ttf'));
+        $font->size(40);
+        $font->color('#000');
+        $font->align('left');
+    });
+
+    // Path penyimpanan hasil gambar
+    $gambarHasil = 'storage/gambar/' . $nim . '.png';
+    $img->save(public_path($gambarHasil));
+
+    Session::flash('gambar', asset($gambarHasil));
+    
+    if($data->status == true){
             $data->update([
                 'status' => false
             ]);
@@ -26,7 +67,7 @@ class MahasiswaController extends Controller
                 'status' => true
             ]);
             $data->save();
-            return redirect('/mahasiswa');
+            return redirect('/input')->with('gambar', asset($gambarHasil));
         }
       
     }
