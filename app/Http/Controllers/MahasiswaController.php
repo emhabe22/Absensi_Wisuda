@@ -65,8 +65,6 @@ class MahasiswaController extends Controller
         session()->flash('success', 'Absen berhasil!');
         return redirect('/mahasiswa')->with('gambar', asset($gambarHasil));
     }
-
-    //Orang Tua
     
     
 

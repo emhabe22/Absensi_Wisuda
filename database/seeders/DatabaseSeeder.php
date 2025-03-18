@@ -84,9 +84,8 @@ class DatabaseSeeder extends Seeder
         
         foreach ($parents as $data) {
             $parent = OrangTua::create($data);
-        
             $dataId = $parent->id;
-            $qrPath = 'parent/' . $dataId . '.png';
+            $qrPath = 'parent-absent/' . $dataId . '.png';
         
             // Generate QR Code
             $qrCode = QrCode::format('png')

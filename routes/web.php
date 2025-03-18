@@ -25,6 +25,8 @@ Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahas
 Route::get('/mahasiswa/edit/{nim}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
 Route::post('/mahasiswa/update/{nim}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('absent');
+Route::post('/parent-absent/{id}', [OrangTuaController::class, 'absent'])->name('absent');
+
 
 // Orang Tua
 Route::get('/orangtua', [OrangTuaController::class, 'orangtua'])->name('orangtua');

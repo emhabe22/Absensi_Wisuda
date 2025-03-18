@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->boolean('status')->default(false);
+            $table->enum('tipe', ['A', 'I'])->default('A');
             $table->text('qr_code')->nullable();
             $table->timestamps();
         });

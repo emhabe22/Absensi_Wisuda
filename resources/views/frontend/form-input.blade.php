@@ -193,36 +193,51 @@
     </div>
 
     <script>
+        let scannerActive = true; // Status scanner (aktif/tidak)
+
         function onScanSuccess(decodedText) {
-            console.log("QR Code terbaca:", decodedText);
+    if (!scannerActive) return; // Cegah scan lebih dari satu kali
 
-            if (decodedText) {
-                let form = document.getElementById('absenForm');
-                form.action = "/absent/" + decodedText; // Set URL dengan NIM
-                form.submit(); // Submit otomatis
-            } else {
-                console.error("QR Code tidak berisi data.");
-            }
-        }
+    console.log("QR Code terbaca:", decodedText);
+    scannerActive = false; // Matikan scanner setelah scan pertama
 
-        function onScanError(errorMessage) {
-            console.warn("Error scanning:", errorMessage);
-        }
+    let formAction;
 
-        Html5Qrcode.getCameras().then(devices => {
-            if (devices.length > 0) {
-                let cameraId = devices[0].id; // Pilih kamera pertama
-                let scanner = new Html5Qrcode("reader");
+    // Misalkan NIM mahasiswa selalu 10 digit atau lebih
+    if (decodedText.length >= 7) {
+        console.log("Dikenali sebagai Mahasiswa (NIM)");
+        formAction = "/absent/" + decodedText;
+    } else {
+        console.log("Dikenali sebagai Parent (ID)");
+        formAction = "/parent-absent/" + decodedText;
+    }
 
-                scanner.start(cameraId, {
-                        fps: 5,
-                        qrbox: 350
-                    }, onScanSuccess, onScanError)
-                    .catch(err => console.error("Gagal memulai scanner:", err));
-            } else {
-                console.error("Tidak ada kamera yang tersedia.");
-            }
-        }).catch(err => console.error("Gagal mendeteksi kamera:", err));
+    let form = document.getElementById('absenForm');
+    form.action = formAction;
+    form.submit();
+}
+
+function onScanError(errorMessage) {
+    console.warn("Error scanning:", errorMessage);
+}
+
+// Inisialisasi scanner
+Html5Qrcode.getCameras().then(devices => {
+    if (devices.length > 0) {
+        let cameraId = devices[0].id; // Pilih kamera pertama
+        let scanner = new Html5Qrcode("reader");
+
+        scanner.start(cameraId, {
+                fps: 5,
+                qrbox: 350
+            }, onScanSuccess, onScanError)
+            .catch(err => console.error("Gagal memulai scanner:", err));
+    } else {
+        console.error("Tidak ada kamera yang tersedia.");
+    }
+}).catch(err => console.error("Gagal mendeteksi kamera:", err));
+
+
        //modal gambar
        let gambarPath = "{{ session('gambar') }}";
 console.log("Path gambar:", gambarPath); // Debugging

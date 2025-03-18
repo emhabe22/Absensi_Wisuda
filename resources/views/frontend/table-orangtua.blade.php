@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>Nama</th>
                                     <th>Nama Anak</th>
+                                    <th>Wali</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,6 +58,15 @@
                                 <tr>
                                     <td>{{$parent->nama}}</td>
                                     <td>{{$parent->mahasiswa->nama}}</td>
+                                    <td>
+    @if($parent->tipe == 'A')
+        Ayah
+    @elseif($parent->tipe == 'I')
+        Ibu
+    @else
+        Tidak Diketahui
+    @endif
+</td>
                                     <td>
     @if ($parent->status)
         <span class="btn btn-success btn-sm">Sudah Absen</span>
