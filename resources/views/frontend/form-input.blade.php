@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan QR Code</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Modal Styling */
         .modal {
@@ -172,6 +174,36 @@
     <div class="bg-element circle1"></div>
     <div class="bg-element circle2"></div>
     <div class="bg-element line"></div>
+    @if(session('message'))
+    <script>
+        Swal.fire({
+            title: @json(session('message')),
+            icon: @json(session('type', 'info')), // Default ke "info" jika tidak ada
+            html: `
+                @if(session('mahasiswa'))
+                    <img src="{{ asset('storage/foto_mahasiswa/' . session('mahasiswa')->foto) }}" 
+                        alt="Foto Mahasiswa" 
+                        style="width: 100px; height: 100px; border-radius: 10px; margin-bottom: 10px;">
+                    <p><strong>{{ session('mahasiswa')->nama }}</strong></p>
+                    <p>NIM: <strong>{{ session('mahasiswa')->nim }}</strong></p>
+                @elseif(session('orangtua'))
+                    <p><strong>{{ session('orangtua')->nama }}</strong></p>
+                @elseif(session('panitia'))
+                    <p><strong>{{ session('panitia')->nama }}</strong></p>
+                @elseif(session('senat'))
+                    <p><strong>{{ session('senat')->nama }}</strong></p>
+                @elseif(session('rektorat'))
+                    <p><strong>{{ session('rektorat')->nama }}</strong></p>
+                @endif
+            `,
+            showConfirmButton: false, // Hilangkan tombol OK
+            timer: 3000, // Tutup otomatis dalam 3 detik
+            timerProgressBar: true // Tambahkan progress bar saat hitung mundur
+        });
+    </script>
+@endif
+
+
 
     <div class="container">
         <h1>Scan Untuk Absen</h1>
@@ -249,38 +281,9 @@
             }
         }).catch(err => console.error("Gagal mendeteksi kamera:", err));
 
-        // Menampilkan modal setelah redirect ke /mahasiswa
-        let gambarPath = "/assets/images/twibbon-wisuda.png";
-        let nim = "{{ session('nim') }}";
-        let nama = "{{ session('nama') }}";
-
-        console.log("Path gambar:", gambarPath);
-
-        if (gambarPath && gambarPath !== '') {
-            let modal = document.getElementById("gambarModal");
-            let img = document.getElementById("gambarHasil");
-            let nimText = document.getElementById("nimText");
-            let namaText = document.getElementById("namaText");
-
-            img.src = gambarPath + "?t=" + new Date().getTime(); // Tambah timestamp untuk bypass cache
-            nimText.innerText = nim;
-            namaText.innerText = nama;
-
-            img.onload = function() {
-                console.log("Gambar berhasil dimuat:", img.src);
-                modal.style.display = "block"; // Tampilkan modal setelah gambar siap
-            };
-
-            img.onerror = function() {
-                console.error("Gagal memuat gambar:", img.src);
-            };
-
-            // Tutup modal setelah 5 detik
-            setTimeout(() => {
-                modal.style.display = "none";
-            }, 5000);
-        }
+        
     </script>
+    
 </body>
 
 
