@@ -11,6 +11,7 @@ use Endroid\QrCode\Writer\PngWriter;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Models\OrangTua;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -28,32 +29,28 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        $parent = OrangTua::create([
+            'nama' => 'VIKTOR TAEK',
+            'status' => false,
+        ]);
+        $parentId = $parent->id;
+
         $mahasiswa = [
             [
-                'nim' => '22001001',
+                'nim' => '1811027',
                 'nik' => '3201012345678901',
-                'nama' => 'Budi Santoso',
-                'jurusan' => 'Teknik Informatika',
-                'email' => 'budi@example.com',
-                'no_hp' => '081234567890',
-                'alamat' => 'Jakarta, Indonesia',
-                'ipk' => 3.75,
+                'nama' => 'Marselus Junito Bau',
+                'jurusan' => 'Teknik Mesin S1',
+                'email' => 'jhunitomakbalin@gmail.com',
+                'no_hp' => '0821 4429 5420',
+                'alamat' => 'DUSUN NAEKASAK RT. 01 RW. 01 DESA SISI,  KEC. KOBALIMA, KAB. MALAKA, NUSA TENGGARA TIMUR',
+                'ipk' => 2.63,
+                'tempat_tanggal_lahir' => 'NAEKASAK / 3 JUNI 1999',
                 'foto' => 'budi.jpg',
-                'status' => true
+                'status' => 0,
+                'orang_tua_id' => $parentId,
             ],
-            [
-                'nim' => '22001002',
-                'nik' => '3201012345678902',
-                'nama' => 'Siti Aminah',
-                'jurusan' => 'Sistem Informasi',
-                'email' => 'siti@example.com',
-                'no_hp' => '081298765432',
-                'alamat' => 'Surabaya, Indonesia',
-                'ipk' => 3.85,
-                'foto' => 'siti.jpg',
-                'status' => false
-            ]
-        ];
+];
 
 
 
@@ -75,6 +72,25 @@ class DatabaseSeeder extends Seeder
         
             // Simpan path QR Code ke database
             $mhs['qr_code'] = $qrPath;
+        }
+        foreach ($parent as & $pr) {
+            $data = $parent->id; // Ambil ID orang tua
+            $qrPath = 'parent/' . $parent->id . '.png';
+            
+            // Generate QR Code
+            $qrCode = QrCode::format('png')
+                ->size(400)
+                ->errorCorrection('H')
+                ->margin(2)
+                ->color(0, 0, 0)
+                ->backgroundColor(255, 255, 255)
+                ->generate($data);
+            
+            // Simpan QR Code ke storage
+            Storage::disk('public')->put($qrPath, $qrCode);
+            
+            // Simpan path QR Code ke database
+            $parent->update(['qr_code' => $qrPath]);            
         }
         
 

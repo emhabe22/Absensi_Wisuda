@@ -39,6 +39,28 @@
                     </div>
                 </div>
                 <!--end breadcrumb-->
+                @if(session('success'))
+    <div id="alert-success" class="alert alert-success">
+        {{ session('success') }}
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('alert-success').style.display = 'none';
+        }, 3000); // 3 detik
+    </script>
+@endif
+@if(session('danger'))
+    <script>
+        Swal.fire({
+            title: 'Anda Telah Keluar, silahkan absen kembali',
+            text: "{{ session('danger') }}",
+            icon: 'error', // Menggunakan ikon merah (danger)
+            timer: 3000, // Hilang otomatis dalam 3 detik
+            showConfirmButton: false
+        });
+    </script>
+@endif
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">
@@ -81,7 +103,7 @@
                                        <td>{{$mhs->jurusan}}</td>
                                        <td>{{$mhs->ipk}}</td>
                                        <td>
-    @if ($mhs->status == true)
+    @if ($mhs->status == 1)
         <span class="btn btn-success btn-sm">Sudah Absen</span>
     @else
         <span class="btn btn-danger btn-sm">Belum Absen</span>

@@ -15,7 +15,6 @@ class MahasiswaController extends Controller
     
     public function absent($nim){
     $data = Mahasiswa::where('nim', $nim)->first();
-        // Path template sertifikat/gambar
     $templatePath = public_path('template/template.png'); 
 
     // Path foto mahasiswa
@@ -54,24 +53,21 @@ class MahasiswaController extends Controller
     $img->save(public_path($gambarHasil));
 
     Session::flash('gambar', asset($gambarHasil));
-    
-    if($data->status == true){
-            $data->update([
-                'status' => false
-            ]);
-            $data->save();
-            return redirect('/input')->with('message', 'Kamu keluar ');
-        }
-        else {
-            $data->update([
-                'status' => true
-            ]);
-            $data->save();
-            return redirect('/input')->with('gambar', asset($gambarHasil));
-        }
-      
-    }
 
+    $data->refresh(); // Ambil ulang data dari database sebelum mengubah status
+
+    if ($data->status == 1) {
+        $data->update(['status' => 0]);
+        session()->flash('danger', 'Anda telah Keluar!');
+        return redirect('/mahasiswa')->with('message', 'Kamu keluar');
+    } else {
+        $data->update(['status' => 1]);
+        session()->flash('success', 'Absen berhasil!');
+        return redirect('/mahasiswa')->with('gambar', asset($gambarHasil));
+    }
+    
+
+}
    
 }
     

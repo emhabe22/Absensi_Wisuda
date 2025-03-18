@@ -17,6 +17,11 @@
                 </div>
                 <div class="menu-title">Dashboard</div>
             </a>
+            <a href="/input">
+                <div class="parent-icon icon-color-2"><i class="bx bx-calendar-alt"></i>
+                </div>
+                <div class="menu-title">Absen</div>
+            </a>
         </li>
         <li class="menu-label">Users</li>
         <li>
