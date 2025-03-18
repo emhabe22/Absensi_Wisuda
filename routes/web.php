@@ -4,6 +4,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PanitiaController;
+use App\Http\Controllers\RektoratController;
+use App\Http\Controllers\SenatController;
 use App\Models\Mahasiswa;
 use App\Models\OrangTua;
 use App\Models\Panitia;
@@ -42,5 +44,9 @@ Route::get('/editmahasiswa', function () {
 
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('absent');
 Route::post('/parent-absent/{id}', [OrangTuaController::class, 'absent'])->name('absent');
+Route::post('/senat-absent/{id}', [SenatController::class, 'absent'])->name('absent');
+Route::post('/rektorat-absent/{id}', [RektoratController::class, 'absent'])->name('absent');
+
+
 
 
