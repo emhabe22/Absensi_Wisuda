@@ -193,7 +193,6 @@
                                     <tr>
                                         <th>Nama</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -206,11 +205,6 @@
                                                 @else
                                                     <span class="btn btn-danger btn-sm">Belum Absen</span>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <a href="/edit-mahasiswa">
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -239,7 +233,6 @@
                                         <th>UUID</th>
                                         <th>Nama Senat</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -253,11 +246,6 @@
                                                 @else
                                                     <span class="btn btn-danger btn-sm">Belum Absen</span>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <a href="/edit-senat">
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -286,7 +274,6 @@
                                         <th>UUID</th>
                                         <th>Nama Rektorat</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -300,11 +287,6 @@
                                                 @else
                                                     <span class="btn btn-danger btn-sm">Belum Absen</span>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <a href="/edit-rektorat">
-                                                    <button type="button" class="btn btn-primary">Edit</button>
-                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
