@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('panitias', function (Blueprint $table) {
+        Schema::create('rektorats', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->integer('status')->default(0);
             $table->text('qr_code')->nullable();
-
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('panitias');
+        Schema::dropIfExists('rektorats');
     }
 };
