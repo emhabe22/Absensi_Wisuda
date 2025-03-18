@@ -51,9 +51,6 @@ class DatabaseSeeder extends Seeder
                 'orang_tua_id' => $parentId,
             ],
 ];
-
-
-
         foreach ($mahasiswa as &$mhs) {
             $data = $mhs['nim']; // Hanya encode NIM tanpa URL
             $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Path penyimpanan
