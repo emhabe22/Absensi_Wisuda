@@ -1,8 +1,8 @@
-<?php
-
+<?php   
 namespace App\Http\Controllers;
 require '../vendor/autoload.php';
 use App\Models\Mahasiswa;
+use App\Models\OrangTua;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Support\Facades\Session;
@@ -47,13 +47,13 @@ class MahasiswaController extends Controller
         $font->color('#000');
         $font->align('left');
     });
-
     // Path penyimpanan hasil gambar
     $gambarHasil = 'storage/gambar/' . $nim . '.png';
     $img->save(public_path($gambarHasil));
 
     Session::flash('gambar', asset($gambarHasil));
 
+    //Mahasiswa
     $data->refresh(); // Ambil ulang data dari database sebelum mengubah status
 
     if ($data->status == 1) {
@@ -65,6 +65,9 @@ class MahasiswaController extends Controller
         session()->flash('success', 'Absen berhasil!');
         return redirect('/mahasiswa')->with('gambar', asset($gambarHasil));
     }
+
+    //Orang Tua
+    
     
 
 }

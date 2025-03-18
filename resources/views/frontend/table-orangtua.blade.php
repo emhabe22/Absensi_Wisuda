@@ -56,7 +56,7 @@
                                 @foreach ($data as $parent)
                                 <tr>
                                     <td>{{$parent->nama}}</td>
-                                    <td></td>
+                                    <td>{{$parent->mahasiswa->nama}}</td>
                                     <td>
     @if ($parent->status)
         <span class="btn btn-success btn-sm">Sudah Absen</span>

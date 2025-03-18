@@ -29,11 +29,8 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        $parent = OrangTua::create([
-            'nama' => 'VIKTOR TAEK',
-            'status' => false,
-        ]);
-        $parentId = $parent->id;
+       
+     
 
         $mahasiswa = [
             [
@@ -48,9 +45,9 @@ class DatabaseSeeder extends Seeder
                 'tempat_tanggal_lahir' => 'NAEKASAK / 3 JUNI 1999',
                 'foto' => 'budi.jpg',
                 'status' => 0,
-                'orang_tua_id' => $parentId,
             ],
 ];
+
         foreach ($mahasiswa as &$mhs) {
             $data = $mhs['nim']; // Hanya encode NIM tanpa URL
             $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Path penyimpanan
@@ -70,10 +67,27 @@ class DatabaseSeeder extends Seeder
             // Simpan path QR Code ke database
             $mhs['qr_code'] = $qrPath;
         }
-        foreach ($parent as & $pr) {
-            $data = $parent->id; // Ambil ID orang tua
-            $qrPath = 'parent/' . $parent->id . '.png';
+        
+        
+
+        $dataId=Mahasiswa::insert($mahasiswa);
+
+        $parents = [
+            ['nama' => 'VIKTOR TAEK', 
+            'status' => false, 
+            'mahasiswa_id' => $dataId],
             
+            ['nama' => 'JOHN DOE',
+             'status' => false, 
+             'mahasiswa_id' => $dataId]
+        ];
+        
+        foreach ($parents as $data) {
+            $parent = OrangTua::create($data);
+        
+            $dataId = $parent->id;
+            $qrPath = 'parent/' . $dataId . '.png';
+        
             // Generate QR Code
             $qrCode = QrCode::format('png')
                 ->size(400)
@@ -81,16 +95,13 @@ class DatabaseSeeder extends Seeder
                 ->margin(2)
                 ->color(0, 0, 0)
                 ->backgroundColor(255, 255, 255)
-                ->generate($data);
-            
+                ->generate($dataId);
+        
             // Simpan QR Code ke storage
             Storage::disk('public')->put($qrPath, $qrCode);
-            
-            // Simpan path QR Code ke database
-            $parent->update(['qr_code' => $qrPath]);            
-        }
         
-
-          Mahasiswa::insert($mahasiswa);
+            // Simpan path QR Code ke database
+            $parent->update(['qr_code' => $qrPath]);
+        }
     }
 }

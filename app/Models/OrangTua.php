@@ -9,4 +9,9 @@ class OrangTua extends Model
 {
     use HasFactory;
     protected $guarded =[];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
 }

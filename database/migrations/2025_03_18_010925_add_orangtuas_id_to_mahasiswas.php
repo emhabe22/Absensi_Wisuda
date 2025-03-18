@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('mahasiswas', function (Blueprint $table) {
-            if (!Schema::hasColumn('mahasiswas', 'orang_tua_id')) {
-                $table->unsignedBigInteger('orang_tua_id')->nullable();
-                $table->foreign('orang_tua_id')->references('id')->on('orang_tuas')->onDelete('set null');
-            }
+        Schema::table('orang_tuas', function (Blueprint $table) {
+            $table->foreignId('mahasiswa_id')->nullable()->constrained('mahasiswas')->onDelete('set null');
         });
     }
 
@@ -24,11 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('mahasiswas', function (Blueprint $table) {
-            if (Schema::hasColumn('mahasiswas', 'orang_tua_id')) {
-                $table->dropForeign(['orang_tua_id']);
-                $table->dropColumn('orang_tua_id');
-            }
+        Schema::table('orang_tuas', function (Blueprint $table) {
+          $table->dropForeign(['mahasiswa_id']);
         });
     }
 };

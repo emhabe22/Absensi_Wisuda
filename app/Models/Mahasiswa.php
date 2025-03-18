@@ -9,4 +9,9 @@ class Mahasiswa extends Model
 {
     use HasFactory;
     protected $guarded =[];
+
+    public function orangtua()
+    {
+        return $this->hasMany(OrangTua::class);
+    }
 }

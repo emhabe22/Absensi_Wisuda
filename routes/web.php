@@ -37,5 +37,5 @@ Route::get('/input', function () {
 });
 
 Route::get('/editmahasiswa', function () {
-    return view('frontend.edit');
+    return view('frontend.edit-mahasiswa');
 });

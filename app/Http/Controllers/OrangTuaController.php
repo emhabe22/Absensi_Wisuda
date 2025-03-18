@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class OrangTuaController extends Controller
 {
     public function orangtua(){
-        $data = OrangTua::all();
+        $data = OrangTua::with('mahasiswa')->get();
         return view('frontend.table-orangtua', compact('data'));
     }
 }
