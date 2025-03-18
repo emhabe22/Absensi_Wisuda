@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 require '../vendor/autoload.php';
-use App\Models\Mahasiswa;
-use App\Models\OrangTua;
+use App\Models\Senat;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Support\Facades\Session;
@@ -12,7 +11,7 @@ use Illuminate\Http\Request;
 class SenatController extends Controller
 {
     public function absent($uuid){
-        $data = Mahasiswa::where('nim', $uuid)->first();
+        $data = Senat::where('uuid', $uuid)->first();
         $templatePath = public_path('template/template.png'); 
     
         // Path foto mahasiswa
