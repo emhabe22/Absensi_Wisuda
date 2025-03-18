@@ -44,9 +44,12 @@ Route::get('/editmahasiswa', function () {
 
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('absent');
 Route::post('/parent-absent/{id}', [OrangTuaController::class, 'absent'])->name('absent');
+
+
+// Senat
+Route::get('/senat', [SenatController::class, 'senat'])->name('senat');
 Route::post('/senat-absent/{uuid}', [SenatController::class, 'absent'])->name('absent');
+
+// rektorat
+Route::get('/rektorat', [RektoratController::class, 'rektorat'])->name('rektorat');
 Route::post('/rektorat-absent/{uuid}', [RektoratController::class, 'absent'])->name('absent');
-
-
-
-

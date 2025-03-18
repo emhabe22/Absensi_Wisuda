@@ -39,7 +39,7 @@
                 </li>
                 <li> <a href="/senat"><i class="bx bx-right-arrow-alt"></i>Senat</a>
                 </li>
-                <li> <a href="/rektorat"><i class="bx bx-right-arrow-alt"></i>Senat</a>
+                <li> <a href="/rektorat"><i class="bx bx-right-arrow-alt"></i>Rektorat</a>
                 </li>
             </ul>
         </li>

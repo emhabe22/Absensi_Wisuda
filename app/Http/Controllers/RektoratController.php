@@ -9,11 +9,15 @@ use Illuminate\Http\Request;
 
 class RektoratController extends Controller
 {
+    public function rektorat(){
+        $data = Rektorat::all();
+        return view('frontend.table-rektorat', compact('data'));
+    }
     public function absent($uuid){
-        $data = Rektorat::where('uuid', $uuid)->first();    
+        $data = Rektorat::where('uuid', $uuid)->first();
         //Mahasiswa
         $data->refresh(); // Ambil ulang data dari database sebelum mengubah status
-    
+
         if ($data->status == 1) {
             $data->update(['status' => 0]);
             session()->flash('danger', 'Anda telah Keluar!');
