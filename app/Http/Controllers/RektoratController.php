@@ -55,11 +55,11 @@ class RektoratController extends Controller
         if ($data->status == 1) {
             $data->update(['status' => 0]);
             session()->flash('danger', 'Anda telah Keluar!');
-            return redirect('/senat')->with('message', 'Kamu keluar');
+            return redirect('/rektorat')->with('message', 'Kamu keluar');
         } else {
             $data->update(['status' => 1]);
             session()->flash('success', 'Absen berhasil!');
-            return redirect('/senat')->with('gambar', asset($gambarHasil));
+            return redirect('/rektorat')->with('gambar', asset($gambarHasil));
         }
     }
 }

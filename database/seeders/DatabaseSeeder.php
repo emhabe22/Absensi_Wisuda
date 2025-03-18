@@ -116,7 +116,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($senat as $data) {
             $senats = Senat::create($data);
-            $dataId = $senats->id;
+            $dataId = $senats->uuid;
             $qrPath = 'senat-absent/' . $dataId . '.png';
         
             // Generate QR Code
@@ -144,7 +144,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($rektorat as $data) {
             $rektorat = Rektorat::create($data);
-            $dataId = $rektorat->id;
+            $dataId = $rektorat->uuid;
             $qrPath = 'rektorat-absent/' . $dataId . '.png';
     
             // Generate QR Code

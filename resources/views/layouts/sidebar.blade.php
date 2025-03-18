@@ -37,6 +37,10 @@
                 </li>
                 <li> <a href="/panitia"><i class="bx bx-right-arrow-alt"></i>Panitia</a>
                 </li>
+                <li> <a href="/senat"><i class="bx bx-right-arrow-alt"></i>Senat</a>
+                </li>
+                <li> <a href="/rektorat"><i class="bx bx-right-arrow-alt"></i>Senat</a>
+                </li>
             </ul>
         </li>
     </ul>

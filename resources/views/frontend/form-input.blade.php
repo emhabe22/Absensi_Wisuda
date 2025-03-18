@@ -206,13 +206,23 @@
             let formAction;
 
             // Misalkan NIM mahasiswa selalu 10 digit atau lebih
-            if (decodedText.length >= 7) {
+            if (decodedText.startsWith("S")) {
+                console.log("Dikenali sebagai Senat");
+                formAction = "/senat-absent/" + decodedText;
+            } else if (decodedText.startsWith("R")) {
+                console.log("Dikenali sebagai Rektorat");
+                formAction = "/rektorat-absent/" + decodedText;
+            } else if (decodedText.startsWith("P")) {
+                console.log("Dikenali sebagai Panitia");
+                formAction = "/panitia-absent/" + decodedText;
+            } else if (decodedText.length >= 7) {
                 console.log("Dikenali sebagai Mahasiswa (NIM)");
                 formAction = "/absent/" + decodedText;
             } else {
                 console.log("Dikenali sebagai Parent (ID)");
                 formAction = "/parent-absent/" + decodedText;
             }
+
 
             let form = document.getElementById('absenForm');
             form.action = formAction;
