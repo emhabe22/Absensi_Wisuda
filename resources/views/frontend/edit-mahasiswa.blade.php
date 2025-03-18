@@ -11,7 +11,7 @@
                 <div class="col-xl-11 mx-auto">
                     <h6 class="mb-0 text-uppercase">Form Edit Mahasiswa</h6>
                     <hr>
-                    <div class="card border-top border-0 border-4 border-info">
+                    <div class="card border-top border-4 border-info">
                         <div class="card-body">
                             <div class="border p-4 rounded">
                                 <form action="{{ route('mahasiswa.update', $mahasiswa->nim) }}" method="POST"
