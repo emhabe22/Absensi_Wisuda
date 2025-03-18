@@ -20,12 +20,19 @@ class RektoratController extends Controller
 
         if ($data->status == 1) {
             $data->update(['status' => 0]);
-            session()->flash('danger', 'Anda telah Keluar!');
-            return redirect('/rektorat')->with('message', 'Kamu keluar');
+            return redirect('/input')->with([
+                'message' => 'Anda telah Keluar!',
+                'type' => 'error', // ❌ untuk keluar
+                'mahasiswa' => $data
+            ]);
+            
         } else {
             $data->update(['status' => 1]);
-            session()->flash('success', 'Absen berhasil!');
-            return redirect('/rektorat');
-        }
+            return redirect('/input')->with([
+                'message' => 'Absen berhasil!',
+                'type' => 'success',
+                'mahasiswa' => $data
+            ]);
+    }
     }
 }

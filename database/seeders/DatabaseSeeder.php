@@ -118,7 +118,7 @@ class DatabaseSeeder extends Seeder
             $senats = Senat::create($data);
             $dataId = $senats->uuid;
             $qrPath = 'senat-absent/' . $dataId . '.png';
-        
+            
             // Generate QR Code
             $qrCode = QrCode::format('png')
                 ->size(400)
