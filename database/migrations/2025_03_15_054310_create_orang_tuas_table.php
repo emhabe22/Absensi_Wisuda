@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama');
             $table->boolean('status')->default(false);
             $table->text('qr_code')->nullable();
-
             $table->timestamps();
         });
     }

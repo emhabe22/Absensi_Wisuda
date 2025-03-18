@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('alamat', 100);
             $table->double('ipk',10);
             $table->string('foto', 100)->nullable();
-            $table->boolean('status')->default(false);
+            $table->integer('status')->default(0);
             $table->text('qr_code')->nullable();
             $table->timestamps();
         });
