@@ -168,7 +168,6 @@
 </head>
 
 <body>
-
     <!-- Elemen dekoratif -->
     <div class="bg-element circle1"></div>
     <div class="bg-element circle2"></div>
@@ -184,10 +183,13 @@
         @csrf
         <input type="hidden" name="nim" id="nim">
     </form>
+
     <!-- Modal -->
     <div id="gambarModal" class="modal">
         <div class="modal-content">
             <h3>Data Berhasil Diproses</h3>
+            <p><strong>NIM:</strong> <span id="nimText"></span></p>
+            <p><strong>Nama:</strong> <span id="namaText"></span></p>
             <img id="gambarHasil" src="" alt="Gambar Hasil">
         </div>
     </div>
@@ -196,77 +198,80 @@
         let scannerActive = true; // Status scanner (aktif/tidak)
 
         function onScanSuccess(decodedText) {
-    if (!scannerActive) return; // Cegah scan lebih dari satu kali
+            if (!scannerActive) return; // Cegah scan lebih dari satu kali
 
-    console.log("QR Code terbaca:", decodedText);
-    scannerActive = false; // Matikan scanner setelah scan pertama
+            console.log("QR Code terbaca:", decodedText);
+            scannerActive = false; // Matikan scanner setelah scan pertama
 
-    let formAction;
+            let formAction;
 
-    // Misalkan NIM mahasiswa selalu 10 digit atau lebih
-    if (decodedText.length >= 7) {
-        console.log("Dikenali sebagai Mahasiswa (NIM)");
-        formAction = "/absent/" + decodedText;
-    } else {
-        console.log("Dikenali sebagai Parent (ID)");
-        formAction = "/parent-absent/" + decodedText;
-    }
+            // Misalkan NIM mahasiswa selalu 10 digit atau lebih
+            if (decodedText.length >= 7) {
+                console.log("Dikenali sebagai Mahasiswa (NIM)");
+                formAction = "/absent/" + decodedText;
+            } else {
+                console.log("Dikenali sebagai Parent (ID)");
+                formAction = "/parent-absent/" + decodedText;
+            }
 
-    let form = document.getElementById('absenForm');
-    form.action = formAction;
-    form.submit();
-}
+            let form = document.getElementById('absenForm');
+            form.action = formAction;
+            form.submit();
+        }
 
-function onScanError(errorMessage) {
-    console.warn("Error scanning:", errorMessage);
-}
+        function onScanError(errorMessage) {
+            console.warn("Error scanning:", errorMessage);
+        }
 
-// Inisialisasi scanner
-Html5Qrcode.getCameras().then(devices => {
-    if (devices.length > 0) {
-        let cameraId = devices[0].id; // Pilih kamera pertama
-        let scanner = new Html5Qrcode("reader");
+        // Inisialisasi scanner
+        Html5Qrcode.getCameras().then(devices => {
+            if (devices.length > 0) {
+                let cameraId = devices[0].id; // Pilih kamera pertama
+                let scanner = new Html5Qrcode("reader");
 
-        scanner.start(cameraId, {
-                fps: 5,
-                qrbox: 350
-            }, onScanSuccess, onScanError)
-            .catch(err => console.error("Gagal memulai scanner:", err));
-    } else {
-        console.error("Tidak ada kamera yang tersedia.");
-    }
-}).catch(err => console.error("Gagal mendeteksi kamera:", err));
+                scanner.start(cameraId, {
+                        fps: 5,
+                        qrbox: 350
+                    }, onScanSuccess, onScanError)
+                    .catch(err => console.error("Gagal memulai scanner:", err));
+            } else {
+                console.error("Tidak ada kamera yang tersedia.");
+            }
+        }).catch(err => console.error("Gagal mendeteksi kamera:", err));
 
+        // Menampilkan modal setelah redirect ke /mahasiswa
+        let gambarPath = "/assets/images/twibbon-wisuda.png";
+        let nim = "{{ session('nim') }}";
+        let nama = "{{ session('nama') }}";
 
-       //modal gambar
-       let gambarPath = "{{ session('gambar') }}";
-console.log("Path gambar:", gambarPath); // Debugging
+        console.log("Path gambar:", gambarPath);
 
-if (gambarPath && gambarPath !== '') {
-    let modal = document.getElementById("gambarModal");
-    let img = document.getElementById("gambarHasil");
+        if (gambarPath && gambarPath !== '') {
+            let modal = document.getElementById("gambarModal");
+            let img = document.getElementById("gambarHasil");
+            let nimText = document.getElementById("nimText");
+            let namaText = document.getElementById("namaText");
 
-    img.src = gambarPath + "?t=" + new Date().getTime(); // Tambah timestamp untuk bypass cache
+            img.src = gambarPath + "?t=" + new Date().getTime(); // Tambah timestamp untuk bypass cache
+            nimText.innerText = nim;
+            namaText.innerText = nama;
 
-    img.onload = function () {
-        console.log("Gambar berhasil dimuat:", img.src);
-        modal.style.display = "block"; // Tampilkan modal setelah gambar siap
-    };
+            img.onload = function() {
+                console.log("Gambar berhasil dimuat:", img.src);
+                modal.style.display = "block"; // Tampilkan modal setelah gambar siap
+            };
 
-    img.onerror = function () {
-        console.error("Gagal memuat gambar:", img.src);
-    };
+            img.onerror = function() {
+                console.error("Gagal memuat gambar:", img.src);
+            };
 
-    // Tutup modal setelah 5 detik
-    setTimeout(() => {
-        modal.style.display = "none";
-    }, 5000);
-}
-
-
-
+            // Tutup modal setelah 5 detik
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 5000);
+        }
     </script>
-
 </body>
+
 
 </html>
