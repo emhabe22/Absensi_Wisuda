@@ -6,7 +6,7 @@
 
 <head>
     <!-- Required meta tags -->
-     <title>eWisudaITN</title>
+    <title>eWisudaITN</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@yield('title')</title>
@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dark-sidebar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dark-theme.css') }}" />
+    {{-- DataTable --}}
+    <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css">
+    <link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css">
 </head>
 
 <body>
@@ -83,6 +88,8 @@
     <script src="{{ asset('assets/js/index2.js') }}"></script>
     <!-- App JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <!--Data Tables js-->
+    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 </body>
 
 

@@ -14,7 +14,7 @@ class SenatController extends Controller
         $data = Senat::all();
         return view('frontend.table-senat', compact('data'));
     }
-    
+
     public function absent($uuid){
         $data = Senat::where('uuid', $uuid)->first();
         //Mahasiswa
@@ -27,7 +27,7 @@ class SenatController extends Controller
                 'type' => 'error', // ❌ untuk keluar
                 'mahasiswa' => $data
             ]);
-            
+
         } else {
             $data->update(['status' => 1]);
             return redirect('/input')->with([

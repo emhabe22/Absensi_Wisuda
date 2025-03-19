@@ -11,4 +11,26 @@ class PanitiaController extends Controller
         $data = Panitia::all();
         return view('frontend.table-panitia', compact('data'));
     }
+    public function absent($uuid){
+        $data = Panitia::where('uuid', $uuid)->first();
+        //Mahasiswa
+        $data->refresh(); // Ambil ulang data dari database sebelum mengubah status
+
+        if ($data->status == 1) {
+            $data->update(['status' => 0]);
+            return redirect('/input')->with([
+                'message' => 'Anda telah Keluar!',
+                'type' => 'error', // ❌ untuk keluar
+                'panitia' => $data
+            ]);
+
+        } else {
+            $data->update(['status' => 1]);
+            return redirect('/input')->with([
+                'message' => 'Absen berhasil!',
+                'type' => 'success',
+                'panitia' => $data
+            ]);
+        }
+    }
 }

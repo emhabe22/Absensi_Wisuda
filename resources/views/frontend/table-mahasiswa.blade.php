@@ -51,7 +51,6 @@
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nama</th>
-                                        <th>Nama Orang Tua</th>
                                         <th>NIM</th>
                                         <th>NIK</th>
                                         <th>Email</th>
@@ -68,10 +67,9 @@
                                     @foreach ($data as $mhs)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('storage/' . $mhs->foto) }}" alt="Foto Mahasiswa"
+                                                <img src="{{ asset('storage/mahasiswa' . $mhs->foto) }}" alt="Foto Mahasiswa"
                                                     width="100">
                                             </td>
-                                            <td>{{ $mhs->nama }}</td>
                                             <td>{{ $mhs->nama }}</td>
                                             <td>{{ $mhs->nim }}</td>
                                             <td>{{ $mhs->nik }}</td>

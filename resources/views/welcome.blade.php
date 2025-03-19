@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="mb-0 text-white">{{ $all }}</h2>
+                                    <h2 class="mb-0 text-white">{{ $all3 }}</h2>
                                 </div>
                                 <div class="ms-auto font-35 text-white"><i class="bx bxs-group"></i></div>
                             </div>
@@ -69,7 +69,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="mb-0 text-white">{{ $all5 }}</h2>
+                                    <h2 class="mb-0 text-white">{{ $all4 }}</h2>
                                 </div>
                                 <div class="ms-auto font-35 text-white"><i class="bx bxs-user-badge"></i></div>
                             </div>
@@ -84,7 +84,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="mb-0 text-white">{{ $all3 }}</h2>
+                                    <h2 class="mb-0 text-white">{{ $all5 }}</h2>
                                 </div>
                                 <div class="ms-auto font-35 text-white"><i class="bx bxs-id-card"></i></div>
                             </div>

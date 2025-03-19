@@ -31,7 +31,7 @@
                     </div>
                     <hr />
                     <div class="table-responsive">
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <table id="panitiaTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -41,21 +41,21 @@
                             </thead>
                             <tbody>
                                 @foreach ($data as $panitia)
-                                <tr>
-                                    <td>{{$panitia->nama}}</td>
-                                    <td>
-                                     @if ($mhs->status)
-                                    <span class="btn btn-success btn-sm">Sudah Absen</span>
-                                @else
-                                    <span class="btn btn-danger btn-sm">Belum Absen</span>
-                                @endif
-                                    </td>
-                                <td>
-                                <a href="/edit-mahasiswa">
-                               <button type="button" class="btn btn-primary">Edit</button>
-                                 </a>
-                                </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $panitia->nama }}</td>
+                                        <td>
+                                            @if ($panitia->status)
+                                                <span class="btn btn-success btn-sm">Sudah Absen</span>
+                                            @else
+                                                <span class="btn btn-danger btn-sm">Belum Absen</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="#">
+                                                <button type="button" class="btn btn-primary">Edit</button>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                         </table>
                     </div>
@@ -65,15 +65,15 @@
     </div>
     {{-- js --}}
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    {{-- <script>
-    $(document).ready(function () {
-        //Default data table
-        $('#example').DataTable();
-        var table = $('#example2').DataTable({
-            lengthChange: false,
-            buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
+    <script>
+        $(document).ready(function() {
+            //Default data table
+            $('#panitiaTable').DataTable();
+            var table = $('#example2').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
+            });
+            table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
-        table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    });
-</script> --}}
+    </script>
 @endsection
