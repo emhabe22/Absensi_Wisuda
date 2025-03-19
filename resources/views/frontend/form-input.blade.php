@@ -201,15 +201,24 @@
             timerProgressBar: true // Tambahkan progress bar saat hitung mundur
         });
     </script>
-@endif
+    @endif
 
 
 
     <div class="container">
         <h1>Scan Untuk Absen</h1>
-        <div id="reader"></div>
-        <p class="decoration">Arahkan QR Code ke dalam area scanner</p>
+        <input type="text" id="barcodeInput" autofocus onfocus="this.select()"> <!-- Input disembunyikan -->
+        <p class="decoration">Arahkan scanner barcode ke QR Code</p>
     </div>
+
+    <style>
+        /* Sembunyikan input, tapi tetap bisa menerima input scanner */
+        #barcodeInput {
+            opacity: 0;
+            position: absolute;
+            left: -9999px;
+        }
+    </style>
 
     <form id="absenForm" method="POST">
         @csrf
@@ -217,73 +226,51 @@
     </form>
 
     <!-- Modal -->
-    <div id="gambarModal" class="modal">
-        <div class="modal-content">
-            <h3>Data Berhasil Diproses</h3>
-            <p><strong>NIM:</strong> <span id="nimText"></span></p>
-            <p><strong>Nama:</strong> <span id="namaText"></span></p>
-            <img id="gambarHasil" src="" alt="Gambar Hasil">
-        </div>
-    </div>
+    
 
     <script>
-        let scannerActive = true; // Status scanner (aktif/tidak)
+    document.addEventListener("DOMContentLoaded", function() {
+        let isScanning = false; // Flag untuk delay scan
+        let barcodeInput = document.getElementById("barcodeInput");
 
-        function onScanSuccess(decodedText) {
-            if (!scannerActive) return; // Cegah scan lebih dari satu kali
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && barcodeInput.value.trim() !== "" && !isScanning) {
+                isScanning = true; // Kunci agar tidak bisa scan lagi sebelum delay selesai
 
-            console.log("QR Code terbaca:", decodedText);
-            scannerActive = false; // Matikan scanner setelah scan pertama
+                let barcodeValue = barcodeInput.value.trim();
+                console.log("Barcode terbaca:", barcodeValue);
+                barcodeInput.value = ""; // Kosongkan input setelah scan
 
-            let formAction;
+                let formAction;
+                if (barcodeValue.startsWith("S")) {
+                    formAction = "/senat-absent/" + barcodeValue;
+                } else if (barcodeValue.startsWith("R")) {
+                    formAction = "/rektorat-absent/" + barcodeValue;
+                } else if (barcodeValue.startsWith("P")) {
+                    formAction = "/panitia-absent/" + barcodeValue;
+                } else if (barcodeValue.length >= 7) {
+                    formAction = "/absent/" + barcodeValue;
+                } else {
+                    formAction = "/parent-absent/" + barcodeValue;
+                }
+                let form = document.getElementById("absenForm");
+                form.action = formAction;
+                form.submit();
 
-            // Misalkan NIM mahasiswa selalu 10 digit atau lebih
-            if (decodedText.startsWith("S")) {
-                console.log("Dikenali sebagai Senat");
-                formAction = "/senat-absent/" + decodedText;
-            } else if (decodedText.startsWith("R")) {
-                console.log("Dikenali sebagai Rektorat");
-                formAction = "/rektorat-absent/" + decodedText;
-            } else if (decodedText.startsWith("P")) {
-                console.log("Dikenali sebagai Panitia");
-                formAction = "/panitia-absent/" + decodedText;
-            } else if (decodedText.length >= 7) {
-                console.log("Dikenali sebagai Mahasiswa (NIM)");
-                formAction = "/absent/" + decodedText;
+                // Timer delay 2 detik sebelum bisa scan lagi
+                setTimeout(() => {
+                    isScanning = false; // Buka kunci scan setelah 2 detik
+                }, 2000);
             } else {
-                console.log("Dikenali sebagai Parent (ID)");
-                formAction = "/parent-absent/" + decodedText;
+                barcodeInput.focus(); // Pastikan tetap fokus ke input agar scanner tetap berfungsi
             }
+        });
+    });
+</script>
 
 
-            let form = document.getElementById('absenForm');
-            form.action = formAction;
-            form.submit();
-        }
 
-        function onScanError(errorMessage) {
-            console.warn("Error scanning:", errorMessage);
-        }
 
-        // Inisialisasi scanner
-        Html5Qrcode.getCameras().then(devices => {
-            if (devices.length > 0) {
-                let cameraId = devices[0].id; // Pilih kamera pertama
-                let scanner = new Html5Qrcode("reader");
-
-                scanner.start(cameraId, {
-                        fps: 5,
-                        qrbox: 350
-                    }, onScanSuccess, onScanError)
-                    .catch(err => console.error("Gagal memulai scanner:", err));
-            } else {
-                console.error("Tidak ada kamera yang tersedia.");
-            }
-        }).catch(err => console.error("Gagal mendeteksi kamera:", err));
-
-        
-    </script>
-    
 </body>
 
 

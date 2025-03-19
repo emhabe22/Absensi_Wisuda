@@ -31,7 +31,7 @@ class MahasiswaController extends Controller
                 'type' => 'error', // ❌ untuk keluar
                 'mahasiswa' => $data
             ]);
-            
+          
         } else {
             $data->update(['status' => 1]);
             return redirect('/input')->with([
@@ -39,6 +39,6 @@ class MahasiswaController extends Controller
                 'type' => 'success',
                 'mahasiswa' => $data
             ]);
-    }
+        }
     }
 }
