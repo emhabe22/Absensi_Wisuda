@@ -97,9 +97,7 @@ class DatabaseSeeder extends Seeder
             $mhs['qr_code'] = $qrPath;
         }
         
-        
-
-        $dataId=Mahasiswa::insert($mahasiswa);
+        $dataId=Mahasiswa::insert($mahasiswa)->id;
 
         $parents = [
             ['nama' => 'VIKTOR TAEK', 
