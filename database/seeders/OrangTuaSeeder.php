@@ -22,7 +22,7 @@ class OrangTuaSeeder extends Seeder
             // Data orang tua untuk setiap mahasiswa
             $parents = [
                 [
-                    'nama' => 'Ayah dari ' . $mahasiswa->nama, // Bisa diganti dengan data yang lebih spesifik
+                    'nama' => 'Ayah dari ' . $mahasiswa->nama,
                     'tipe' => 'A',
                     'status' => false,
                     'mahasiswa_id' => $mahasiswa->id
@@ -34,12 +34,17 @@ class OrangTuaSeeder extends Seeder
                     'mahasiswa_id' => $mahasiswa->id
                 ]
             ];
-
+            
             foreach ($parents as $data) {
                 $parent = OrangTua::create($data);
-                $parentId = $parent->id;
-                $qrPath = 'parent-absent/' . $parentId . '.png';
-
+                
+                // Ambil NIM mahasiswa untuk digunakan dalam nama file
+                $nim = strtolower(str_replace([' ', '.', ',', '-'], '_', $mahasiswa->nim));
+                
+                // Tentukan nama file berdasarkan tipe orang tua
+                $fileName = ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_') . $nim . '.png';
+                $qrPath = 'parent-absent/' . $fileName;
+            
                 // Generate QR Code
                 $qrCode = QrCode::format('png')
                     ->size(400)
@@ -47,14 +52,14 @@ class OrangTuaSeeder extends Seeder
                     ->margin(2)
                     ->color(0, 0, 0)
                     ->backgroundColor(255, 255, 255)
-                    ->generate($parentId);
-
+                    ->generate($fileName);
+            
                 // Simpan QR Code ke storage
                 Storage::disk('public')->put($qrPath, $qrCode);
-
+            
                 // Simpan path QR Code ke database
                 $parent->update(['qr_code' => $qrPath]);
-            }
+            }            
         }
     }
 }

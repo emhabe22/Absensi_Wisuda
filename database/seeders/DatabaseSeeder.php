@@ -33,12 +33,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Memanggil seeder orangtua
-        $this->call(Mahasiswa::class);
+        $this->call(MahasiswaSeeder::class);
 
         // Memanggil seeder orang tua
         $this->call(OrangTuaSeeder::class);
 
         // Senat
         $this->call(SenatSeeder::class);
+
+        // Panitia
+        $this->call(PanitiaSeeder::class);
     }
 }

@@ -34,7 +34,8 @@
                         <table id="panitiaTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
+                                    <th>Nama</th>                        
+                                    <th>Seksi</th>                        
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -43,6 +44,7 @@
                                 @foreach ($data as $panitia)
                                     <tr>
                                         <td>{{ $panitia->nama }}</td>
+                                        <td>{{ $panitia->section }}</td>
                                         <td>
                                             @if ($panitia->status)
                                                 <span class="btn btn-success btn-sm">Sudah Absen</span>
