@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->string('nama');
+            $table->string('section');
+            $table->string('rektorat')->nullable();
             $table->integer('status')->default(0);
             $table->text('qr_code')->nullable();
+            $table->text('foto')->nullable();
 
             $table->timestamps();
         });

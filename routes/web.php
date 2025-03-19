@@ -19,7 +19,7 @@ Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/', [LoginController::class, 'loginPost']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth'])->group(function () {
+
     // Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa');
     Route::get('/mahasiswa/edit/{nim}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Edit Mahasiswa
     Route::get('/editmahasiswa', fn() => view('frontend.edit-mahasiswa'));
-});
+
 
 // Absent Routes
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('mahasiswa.absent');

@@ -17,9 +17,6 @@ class SenatController extends Controller
     
     public function absent($uuid){
         $data = Senat::where('uuid', $uuid)->first();
-        
-      
-
         //Mahasiswa
         $data->refresh(); // Ambil ulang data dari database sebelum mengubah status
 
