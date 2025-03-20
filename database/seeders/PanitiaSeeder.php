@@ -161,7 +161,7 @@ class PanitiaSeeder extends Seeder
             $inisial = strtoupper(preg_replace('/[^A-Za-z]/', '', implode('', array_map(fn($n) => $n[0] ?? '', explode(' ', $nama)))));
 
             // Buat UUID dari inisial + angka random
-            $uuid = $inisial . 'P' . rand(100, 999);
+            $uuid = 'P'. rand(100, 999) . $inisial;
             $data['uuid'] = $uuid; // Gunakan sebagai ID unik
             $data['status'] = 0;
 
