@@ -177,86 +177,112 @@
 
     @if(session('message'))
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('role') == 'mahasiswa')
     <script>
-        let userRole = @json(session('role')); // Role: mahasiswa, panitia, senat, orangtua
-        let userData = @json(session('user_data')); // Data user: nama, nim, jurusan, foto, seksi
-
-        let templateImage = "{{ asset('storage/template/tmpilan_mahasiswa.png') }}"; // Default mahasiswa
-
-        // Set template gambar berdasarkan role
-        @if(session('role') == 'panitia')
-            templateImage = "{{ asset('storage/template/tmpilan_panitia.png') }}";
-        @elseif(session('role') == 'senat')
-            templateImage = "{{ asset('storage/template/tmpilan_senat.png') }}";
-        @elseif(session('role') == 'orangtua')
-            templateImage = "{{ asset('storage/template/tmpilan_orangtua.png') }}";
-        @endif
-
-        let content = `
-            <div style="position: relative; width: 1000px; height: 600px; overflow: hidden;">
-                <img src="${templateImage}" alt="Template Wisuda" style="width: 100%; height: 100%; display: block;">
-        `;
-
-        // Semua role punya nama
-        content += `
-            <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
-                ${userData.nama}
-            </div>
-        `;
-
-        // Mahasiswa: Foto, Nama, NIM, Jurusan
-        if (userRole === 'mahasiswa') {
-            content += `
-                <div style="position: absolute; left: 150px; top: 250px;">
-                    <img src="${userData.foto}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
-                </div>
-                <div style="position: absolute; left: 670px; top: 325px; color: white; font-size: 28px; font-weight: bold;">
-                    ${userData.nim ?? '-'}
-                </div>
-                <div style="position: absolute; left: 610px; top: 440px; color: white; font-size: 28px; font-weight: bold;">
-                    ${userData.jurusan ?? '-'}
-                </div>
-            `;
-        }
-
-        // Panitia: Nama, Seksi
-        if (userRole === 'panitia') {
-            content += `
-                <div style="position: absolute; left: 610px; top: 350px; color: white; font-size: 28px; font-weight: bold;">
-                    Seksi: ${userData.seksi ?? '-'}
-                </div>
-            `;
-        }
-
-        // Senat: Nama, Foto
-        if (userRole === 'senat') {
-            content += `
-                <div style="position: absolute; left: 150px; top: 250px;">
-                    <img src="${userData.foto}" alt="Foto Senat" style="width: 120px; height: 150px; border-radius: 10px;">
-                </div>
-            `;
-        }
-
-        content += `</div>`; // Tutup div utama
-
+        let mahasiswaData = @json(session('user_data'));
+        let totalMahasiswa = @json(session('total_mahasiswa')); 
+        let mahasiswaKluar = @json(session('mahasiswa_keluar'));
         Swal.fire({
             title: @json(session('message')),
-            width: 1100,  
-            heightAuto: false, // Hindari scroll
-            html: content,
+            width: 1100,
+            heightAuto: false,
+            html: `
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('storage/template/tmpilan_mahasiswa.png') }}') no-repeat center/cover;">
+                        <div style="position: absolute; left: 150px; top: 250px;">
+                            <img src="${mahasiswaData.foto}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
+                        </div>4
+                         <div style="position: absolute; right: 7px; top: 77px; color: white; font-size: 22px; font-weight: bold;">
+                         ${mahasiswaKluar}/${totalMahasiswa}
+                        </div>
+                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                            ${mahasiswaData.nama}
+                        </div>
+                        <div style="position: absolute; left: 670px; top: 325px; color: white; font-size: 28px; font-weight: bold;">
+                            ${mahasiswaData.nim ?? '-'}
+                        </div>
+                        <div style="position: absolute; left: 610px; top: 440px; color: white; font-size: 28px; font-weight: bold;">
+                            ${mahasiswaData.jurusan ?? '-'}
+                        </div>
+                    </div>
+                `,
             showConfirmButton: false,
             timer: 4000
         });
     </script>
-@endif
+    @endif
 
+    @if(session('role') == 'orangtua')
+    <script>
+        let orangtuaData = @json(session('user_data'));
+        Swal.fire({
+            title: @json(session('message')),
+            width: 1100,
+            heightAuto: false,
+            html: `
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('storage/template/tmpilan_orangtua.png') }}') no-repeat center/cover;">
+                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                            ${orangtuaData.nama}
+                        </div>
+                    </div>
+                `,
+            showConfirmButton: false,
+            timer: 4000
+        });
+    </script>
+    @endif
 
+    @if(session('role') == 'panitia')
+    <script>
+        let panitiaData = @json(session('user_data'));
+        Swal.fire({
+            title: @json(session('message')),
+            width: 1100,
+            heightAuto: false,
+            html: `
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('storage/template/tmpilan_panitia.png') }}') no-repeat center/cover;">
+                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                            ${panitiaData.nama}
+                        </div>
+                        <div style="position: absolute; left: 610px; top: 350px; color: white; font-size: 28px; font-weight: bold;">
+                            Seksi: ${panitiaData.seksi ?? '-'}
+                        </div>
+                    </div>
+                `,
+            showConfirmButton: false,
+            timer: 4000
+        });
+    </script>
+    @endif
 
-
-
-
-
-
+    @if(session('role') == 'senat')
+    <script>
+        let senatData = @json(session('user_data'));
+        let senat_keluar = @json(session('senat_keluar')); 
+        let total_senat = @json(session('total_senat'));
+        Swal.fire({
+            title: @json(session('message')),
+            width: 1100,
+            heightAuto: false,
+            html: `
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('storage/template/tmpilan_senat.png') }}') no-repeat center/cover;">
+                        <div style="position: absolute; left: 150px; top: 250px;">
+                            <img src="${senatData.foto}" alt="Foto Senat" style="width: 120px; height: 150px; border-radius: 10px;">
+                        </div>
+                         <div style="position: absolute; right: 30px; top: 118px; color: #001e3f; font-size: 22px; font-weight: bold;">
+                         ${senat_keluar}/${total_senat}
+                        </div>
+                        <div style="position: absolute; left: 450px; top: 220px; color: #001e3f; font-size: 28px; font-weight: bold; font-size: 28px; font-weight: bold;">
+                            ${senatData.nama}
+                        </div>
+                    </div>
+                `,
+            showConfirmButton: false,
+            timer: 4000
+        });
+    </script>
+    @endif
+    @endif
     <div class="container">
         <h1>Scan Untuk Absen</h1>
         <input type="text" id="barcodeInput" autofocus onfocus="this.select()"> <!-- Input disembunyikan -->
