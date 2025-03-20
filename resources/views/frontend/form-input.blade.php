@@ -210,7 +210,7 @@
                                 </div>
                          `,
                     showConfirmButton: false,
-                    timer: 4000
+                    timer: 6000
                 });
             </script>
         @endif
@@ -227,8 +227,14 @@
                     heightAuto: false,
                     html: `
                     <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_orangtua.png') }}') no-repeat center/cover;">
-                     <div style="position: absolute; left: 280px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                     <div style="position: absolute; left: 220px; top: 220px; color: white; font-size: 40px; font-weight: bold;">
                             ${orangtuaData.nama}
+                        </div>
+                        <div style="position: absolute; left: 480px; top: 300px; color: white; font-size: 28px; font-weight: bold;">
+                            ${orangtuaData.mahasiswa.nim}
+                        </div>
+                        <div style="position: absolute; left: 430px; top: 370px; color: white; font-size: 28px; font-weight: bold;">
+                            ${orangtuaData.mahasiswa.jurusan}
                         </div>
                         <div style="position: absolute; left: 900px; top: 78px; color: white; font-size: 22px; font-weight: bold;">
                             ${orangtua_keluar}/${total_orangtua}
@@ -236,7 +242,7 @@
                     </div>
                 `,
                     showConfirmButton: false,
-                    timer: 4000
+                    timer: 6000
                 });
             </script>
         @endif
@@ -252,19 +258,19 @@
                     heightAuto: false,
                     html: `
                     <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_panitia.png') }}') no-repeat center/cover;">
-                        <div style="position: absolute; left: 250px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                        <div  style="position: absolute; left: 250px; top: 220px; color: black; font-size: 30px; font-weight: bold;">
                             ${panitiaData.nama}
                         </div>
-                         <div style="position: absolute; left: 900px; top: 80px; color: white; font-size: 20px; font-weight: bold;">
+                         <div style="position: absolute; left: 900px; top: 80px; color: black; font-size: 20px; font-weight: bold;">
                            ${panitia_keluar}/${total_panitia}
                         </div>
-                        <div style="position: absolute; left: 350px; top: 390px; color: white; font-size: 28px; font-weight: bold;">
+                        <div style="position: absolute; left: 350px; top: 390px; color: black; font-size: 30px; font-weight: bold;">
                              ${panitiaData.section ?? '-'}
                         </div>
                     </div>
                 `,
                     showConfirmButton: false,
-                    timer: 4000
+                    timer: 6000
                 });
             </script>
         @endif
@@ -296,7 +302,7 @@
                 </div>
             `,
                     showConfirmButton: false,
-                    timer: 4000
+                    timer: 6000
                 });
             </script>
         @endif

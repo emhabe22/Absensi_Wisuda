@@ -32,7 +32,7 @@ class MahasiswaController extends Controller
 
         if ($data->status == 1) {
             $data->update(['status' => 0]);
-            $mahasiswaKeluar = Mahasiswa::where('status', 0)->count();
+            $mahasiswaKeluar = Mahasiswa::where('status', 1)->count();
             $totalMahasiswa = Mahasiswa::count();
 
             return redirect('/input')->with([
@@ -45,7 +45,7 @@ class MahasiswaController extends Controller
             ]);
         } else {
             $data->update(['status' => 1]);
-            $mahasiswaKeluar = Mahasiswa::where('status', 0)->count();
+            $mahasiswaKeluar = Mahasiswa::where('status', 1)->count();
             $totalMahasiswa = Mahasiswa::count();
 
             return redirect('/input')->with([

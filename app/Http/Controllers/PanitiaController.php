@@ -19,7 +19,7 @@ class PanitiaController extends Controller
         
         if ($data->status == 1) {
             $data->update(['status' => 0]);
-            $panitia_keluar = Panitia::where('status', 0)->count();
+            $panitia_keluar = Panitia::where('status', 1)->count();
             $total_panitia = Panitia::count();
             return redirect('/input')->with([
                 'message' => 'Anda telah Keluar!',
@@ -32,7 +32,7 @@ class PanitiaController extends Controller
             
         } else {
             $data->update(['status' => 1]);
-            $panitia_keluar = Panitia::where('status', 0)->count();
+            $panitia_keluar = Panitia::where('status', 1)->count();
             $total_panitia = Panitia::count();
             return redirect('/input')->with([
                 'message' => 'Absen berhasil!',

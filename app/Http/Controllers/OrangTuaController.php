@@ -16,11 +16,11 @@ class OrangTuaController extends Controller
     }
 
     public function absent($id){
-    $data = OrangTua::where('id', $id)->first();
+    $data = OrangTua::where('id', $id)->with('mahasiswa')->first();
     //Mahasiswa
     if ($data->status == 1) {
         $data->update(['status' => 0]);
-        $orangtua_keluar = OrangTua::where('status', 0)->count();
+        $orangtua_keluar = OrangTua::where('status', 1)->count();
         $total_orangtua = OrangTua::count();
         return redirect('/input')->with([
             'message' => 'Anda telah Keluar!',
@@ -33,7 +33,7 @@ class OrangTuaController extends Controller
         
     } else {
         $data->update(['status' => 1]);
-        $orangtua_keluar = OrangTua::where('status', 0)->count();
+        $orangtua_keluar = OrangTua::where('status', 1)->count();
         $total_orangtua = OrangTua::count();
         return redirect('/input')->with([
             'message' => 'Absen berhasil!',
