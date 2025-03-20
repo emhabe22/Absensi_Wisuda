@@ -18,36 +18,6 @@
                     </div>
                 </div>
 
-                <!-- Kartu Jumlah Mahasiswa -->
-                <div class="col-12 col-lg-4">
-                    <div class="card radius-15 bg-success" id="toggleCardBtn" style="cursor: pointer;">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <h2 class="mb-0 text-white">{{ $all }}</h2>
-                                </div>
-                                <div class="ms-auto font-35 text-white"><i class="bx bxs-graduation"></i></div>
-                            </div>
-                            <p class="mb-0 text-white">Jumlah Mahasiswa</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kartu Jumlah Orang Tua -->
-                <div class="col-12 col-lg-4">
-                    <div class="card radius-15 bg-warning" id="toggleOrangTuaBtn" style="cursor: pointer;">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <h2 class="mb-0 text-white">{{ $all2 }}</h2>
-                                </div>
-                                <div class="ms-auto font-35 text-white"><i class="bx bxs-user"></i></div>
-                            </div>
-                            <p class="mb-0 text-white">Jumlah Orang Tua</p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Kartu Jumlah Panitia -->
                 <div class="col-12 col-lg-4">
                     <div class="card radius-15 bg-secondary" id="togglePanitiaBtn" style="cursor: pointer;">
@@ -78,21 +48,35 @@
                     </div>
                 </div>
 
-                <!-- Kartu Jumlah Rektorat -->
-                <div class="col-12 col-lg-4">
-                    <div class="card radius-15 bg-info" id="toggleRektoratBtn" style="cursor: pointer;">
+                <!-- Kartu Jumlah Mahasiswa -->
+                <div class="col-12 col-lg-6">
+                    <div class="card radius-15 bg-success" id="toggleCardBtn" style="cursor: pointer;">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="mb-0 text-white">{{ $all5 }}</h2>
+                                    <h2 class="mb-0 text-white">{{ $all }}</h2>
                                 </div>
-                                <div class="ms-auto font-35 text-white"><i class="bx bxs-id-card"></i></div>
+                                <div class="ms-auto font-35 text-white"><i class="bx bxs-graduation"></i></div>
                             </div>
-                            <p class="mb-0 text-white">Jumlah Rektorat</p>
+                            <p class="mb-0 text-white">Jumlah Mahasiswa</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Kartu Jumlah Orang Tua -->
+                <div class="col-12 col-lg-6">
+                    <div class="card radius-15 bg-warning" id="toggleOrangTuaBtn" style="cursor: pointer;">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2 class="mb-0 text-white">{{ $all2 }}</h2>
+                                </div>
+                                <div class="ms-auto font-35 text-white"><i class="bx bxs-user"></i></div>
+                            </div>
+                            <p class="mb-0 text-white">Jumlah Orang Tua</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end row-->
 
@@ -175,7 +159,6 @@
                 </div>
             </div>
 
-
             <!-- Card Tabel Panitia (Disembunyikan Secara Default) -->
             <div id="panitiaCard" style="display: none;">
                 <div class="card radius-15 overflow-hidden">
@@ -255,48 +238,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Card Tabel Rektorat (Disembunyikan Secara Default) -->
-            <div id="rektoratCard" style="display: none;">
-                <div class="card radius-15 overflow-hidden">
-                    <div class="card-header border-bottom-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h5 class="mb-0">Data Rektorat</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>UUID</th>
-                                        <th>Nama Rektorat</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($rektorat as $rkt)
-                                        <tr>
-                                            <td>{{ $rkt->uuid }}</td>
-                                            <td>{{ $rkt->nama }}</td>
-                                            <td>
-                                                @if ($rkt->status)
-                                                    <span class="btn btn-success btn-sm">Sudah Absen</span>
-                                                @else
-                                                    <span class="btn btn-danger btn-sm">Belum Absen</span>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!-- SCRIPT UNTUK MENAMPILKAN HANYA SATU TABEL -->
@@ -315,12 +256,9 @@
             let senatBtn = document.getElementById("toggleSenatBtn");
             let senatCard = document.getElementById("senatCard");
 
-            let rektoratBtn = document.getElementById("toggleRektoratBtn");
-            let rektoratCard = document.getElementById("rektoratCard");
-
             // Fungsi untuk menyembunyikan semua card sebelum menampilkan yang baru
             function hideAll() {
-                let allCards = [mahasiswaCard, orangTuaCard, panitiaCard, senatCard, rektoratCard];
+                let allCards = [mahasiswaCard, orangTuaCard, panitiaCard, senatCard];
                 allCards.forEach(card => {
                     if (card) card.style.display = "none";
                 });
@@ -352,13 +290,6 @@
                 senatBtn.addEventListener("click", function() {
                     hideAll();
                     senatCard.style.display = "block";
-                });
-            }
-
-            if (rektoratBtn && rektoratCard) {
-                rektoratBtn.addEventListener("click", function() {
-                    hideAll();
-                    rektoratCard.style.display = "block";
                 });
             }
         });

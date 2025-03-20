@@ -34,32 +34,39 @@ class OrangTuaSeeder extends Seeder
                     'mahasiswa_id' => $mahasiswa->id
                 ]
             ];
-            
+
             foreach ($parents as $data) {
+                // Simpan data orang tua ke database
                 $parent = OrangTua::create($data);
-                
-                // Ambil NIM mahasiswa untuk digunakan dalam nama file
-                $nim = strtolower(str_replace([' ', '.', ',', '-'], '_', $mahasiswa->nim));
-                
+
+                // Pastikan NIM mahasiswa tersedia
+                $nim = isset($data['nim']) ? strtolower(str_replace([' ', '.', ',', '-'], '_', $data['nim'])) : 'unknown';
+
                 // Tentukan nama file berdasarkan tipe orang tua
-                $fileName = ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_') . $nim . '.png';
-                $qrPath = 'parent-absent/' . $fileName;
-            
+                $fileName = $parent->id . '_' . ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_') . $nim . '.png';
+                $qrPath = 'qr/qr-orangtua/' . $fileName; // Path penyimpanan
+
                 // Generate QR Code
                 $qrCode = QrCode::format('png')
-                    ->size(400)
-                    ->errorCorrection('H')
-                    ->margin(2)
-                    ->color(0, 0, 0)
-                    ->backgroundColor(255, 255, 255)
+                    ->size(400) // Ukuran lebih besar agar mudah dipindai
+                    ->errorCorrection('H') // Tingkat error correction tinggi
+                    ->margin(2) // Beri margin agar tidak terlalu rapat
+                    ->color(0, 0, 0) // Warna hitam
+                    ->backgroundColor(255, 255, 255) // Background putih
                     ->generate($fileName);
-            
-                // Simpan QR Code ke storage
-                Storage::disk('public')->put($qrPath, $qrCode);
-            
+
+                // Pastikan folder tujuan ada, jika tidak buat foldernya
+                $qrDirectory = public_path('qr/qr-orangtua');
+                if (!file_exists($qrDirectory)) {
+                    mkdir($qrDirectory, 0777, true);
+                }
+
+                // Simpan QR Code langsung ke folder public/qr/qr-orangtua/
+                file_put_contents($qrDirectory . '/' . $fileName, $qrCode);
+
                 // Simpan path QR Code ke database
                 $parent->update(['qr_code' => $qrPath]);
-            }            
+            }
         }
     }
 }

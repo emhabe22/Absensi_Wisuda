@@ -2619,26 +2619,36 @@ class MahasiswaSeeder extends Seeder
             ],
         ];
 
-        foreach ($mahasiswa as &$mhs) {
+        foreach ($mahasiswa as $mhs) {
             $data = $mhs['nim']; // Hanya encode NIM tanpa URL
-            $qrPath = 'qrcodes/' . $mhs['nim'] . '.png'; // Path penyimpanan
+            $qrFileName = $mhs['nim'] . '.png'; // Nama file QR Code
+            $qrPath = 'qr/qr-mahasiswa/' . $qrFileName; // Path penyimpanan
 
-            // Generate QR Code dengan setting optimal
+            // Generate QR Code
             $qrCode = QrCode::format('png')
-                ->size(400) // Ukuran lebih besar agar mudah dipindai
+                ->size(400) // Ukuran besar agar mudah dipindai
                 ->errorCorrection('H') // Tingkat error correction tinggi
                 ->margin(2) // Beri margin agar tidak terlalu rapat
                 ->color(0, 0, 0) // Warna hitam
                 ->backgroundColor(255, 255, 255) // Background putih
                 ->generate($data);
 
-            // Simpan QR Code ke storage
-            Storage::disk('public')->put($qrPath, $qrCode);
+            // Tentukan path penyimpanan di public/qr/qr-mahasiswa
+            $qrDirectory = public_path('qr/qr-mahasiswa');
 
-            // Simpan path QR Code ke database
+            // Buat folder jika belum ada
+            if (!file_exists($qrDirectory)) {
+                mkdir($qrDirectory, 0777, true);
+            }
+
+            // Simpan QR Code ke direktori yang benar
+            file_put_contents($qrDirectory . '/' . $qrFileName, $qrCode);
+
+            // Tambahkan path QR ke data mahasiswa sebelum insert ke database
             $mhs['qr_code'] = $qrPath;
-        }
 
-        Mahasiswa::insert($mahasiswa);
+            // Simpan data mahasiswa ke database dengan QR Code yang sudah di-generate
+            Mahasiswa::create($mhs);
+        }
     }
 }
