@@ -174,34 +174,86 @@
     <div class="bg-element circle1"></div>
     <div class="bg-element circle2"></div>
     <div class="bg-element line"></div>
+
     @if(session('message'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        let userRole = @json(session('role')); // Role: mahasiswa, panitia, senat, orangtua
+        let userData = @json(session('user_data')); // Data user: nama, nim, jurusan, foto, seksi
+
+        let templateImage = "{{ asset('storage/template/tmpilan_mahasiswa.png') }}"; // Default mahasiswa
+
+        // Set template gambar berdasarkan role
+        @if(session('role') == 'panitia')
+            templateImage = "{{ asset('storage/template/tmpilan_panitia.png') }}";
+        @elseif(session('role') == 'senat')
+            templateImage = "{{ asset('storage/template/tmpilan_senat.png') }}";
+        @elseif(session('role') == 'orangtua')
+            templateImage = "{{ asset('storage/template/tmpilan_orangtua.png') }}";
+        @endif
+
+        let content = `
+            <div style="position: relative; width: 1000px; height: 600px; overflow: hidden;">
+                <img src="${templateImage}" alt="Template Wisuda" style="width: 100%; height: 100%; display: block;">
+        `;
+
+        // Semua role punya nama
+        content += `
+            <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                ${userData.nama}
+            </div>
+        `;
+
+        // Mahasiswa: Foto, Nama, NIM, Jurusan
+        if (userRole === 'mahasiswa') {
+            content += `
+                <div style="position: absolute; left: 150px; top: 250px;">
+                    <img src="${userData.foto}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
+                </div>
+                <div style="position: absolute; left: 670px; top: 325px; color: white; font-size: 28px; font-weight: bold;">
+                    ${userData.nim ?? '-'}
+                </div>
+                <div style="position: absolute; left: 610px; top: 440px; color: white; font-size: 28px; font-weight: bold;">
+                    ${userData.jurusan ?? '-'}
+                </div>
+            `;
+        }
+
+        // Panitia: Nama, Seksi
+        if (userRole === 'panitia') {
+            content += `
+                <div style="position: absolute; left: 610px; top: 350px; color: white; font-size: 28px; font-weight: bold;">
+                    Seksi: ${userData.seksi ?? '-'}
+                </div>
+            `;
+        }
+
+        // Senat: Nama, Foto
+        if (userRole === 'senat') {
+            content += `
+                <div style="position: absolute; left: 150px; top: 250px;">
+                    <img src="${userData.foto}" alt="Foto Senat" style="width: 120px; height: 150px; border-radius: 10px;">
+                </div>
+            `;
+        }
+
+        content += `</div>`; // Tutup div utama
+
         Swal.fire({
             title: @json(session('message')),
-            icon: @json(session('type', 'info')), // Default ke "info" jika tidak ada
-            html: `
-                @if(session('mahasiswa'))
-                    <img src="{{ asset('storage/foto_mahasiswa/' . session('mahasiswa')->foto) }}" 
-                        alt="Foto Mahasiswa" 
-                        style="width: 100px; height: 100px; border-radius: 10px; margin-bottom: 10px;">
-                    <p><strong>{{ session('mahasiswa')->nama }}</strong></p>
-                    <p>NIM: <strong>{{ session('mahasiswa')->nim }}</strong></p>
-                @elseif(session('orangtua'))
-                    <p><strong>{{ session('orangtua')->nama }}</strong></p>
-                @elseif(session('panitia'))
-                    <p><strong>{{ session('panitia')->nama }}</strong></p>
-                @elseif(session('senat'))
-                    <p><strong>{{ session('senat')->nama }}</strong></p>
-                @elseif(session('rektorat'))
-                    <p><strong>{{ session('rektorat')->nama }}</strong></p>
-                @endif
-            `,
-            showConfirmButton: false, // Hilangkan tombol OK
-            timer: 3000, // Tutup otomatis dalam 3 detik
-            timerProgressBar: true // Tambahkan progress bar saat hitung mundur
+            width: 1100,  
+            heightAuto: false, // Hindari scroll
+            html: content,
+            showConfirmButton: false,
+            timer: 4000
         });
     </script>
-    @endif
+@endif
+
+
+
+
+
 
 
 
@@ -226,47 +278,51 @@
     </form>
 
     <!-- Modal -->
-    
+
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let isScanning = false; // Flag untuk delay scan
-        let barcodeInput = document.getElementById("barcodeInput");
+        document.addEventListener("DOMContentLoaded", function() {
+            let isScanning = false; // Flag untuk delay scan
+            let barcodeInput = document.getElementById("barcodeInput");
 
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter" && barcodeInput.value.trim() !== "" && !isScanning) {
-                isScanning = true; // Kunci agar tidak bisa scan lagi sebelum delay selesai
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Enter" && barcodeInput.value.trim() !== "" && !isScanning) {
+                    isScanning = true; // Kunci agar tidak bisa scan lagi sebelum delay selesai
 
-                let barcodeValue = barcodeInput.value.trim();
-                console.log("Barcode terbaca:", barcodeValue);
-                barcodeInput.value = ""; // Kosongkan input setelah scan
+                    let barcodeValue = barcodeInput.value.trim();
+                    console.log("Barcode terbaca:", barcodeValue);
+                    barcodeInput.value = ""; // Kosongkan input setelah scan
 
-                let formAction;
-                if (barcodeValue.startsWith("S")) {
-                    formAction = "/senat-absent/" + barcodeValue;
-                } else if (barcodeValue.startsWith("R")) {
-                    formAction = "/rektorat-absent/" + barcodeValue;
-                } else if (barcodeValue.startsWith("P")) {
-                    formAction = "/panitia-absent/" + barcodeValue;
-                } else if (barcodeValue.length >= 7) {
-                    formAction = "/absent/" + barcodeValue;
+                    let formAction;
+                    if (barcodeValue.startsWith("S")) {
+                        formAction = "/senat-absent/" + barcodeValue;
+                    } else if (barcodeValue.startsWith("R")) {
+                        formAction = "/rektorat-absent/" + barcodeValue;
+                    } else if (barcodeValue.startsWith("P")) {
+                        formAction = "/panitia-absent/" + barcodeValue;
+                    } else if (barcodeValue.startsWith("ayah_") || barcodeValue.startsWith("ibu_")) {
+                        formAction = "/parent-absent/" + barcodeValue;
+                    } else if (barcodeValue.length >= 7) {
+                        formAction = "/absent/" + barcodeValue;
+                    } else {
+                        // Handle kondisi jika tidak sesuai dengan aturan di atas
+                        formAction = "/unknown-barcode/" + barcodeValue;
+                        alert("Barcode tidak dikenali!");
+                    }
+                    let form = document.getElementById("absenForm");
+                    form.action = formAction;
+                    form.submit();
+
+                    // Timer delay 2 detik sebelum bisa scan lagi
+                    setTimeout(() => {
+                        isScanning = false; // Buka kunci scan setelah 2 detik
+                    }, 2000);
                 } else {
-                    formAction = "/parent-absent/" + barcodeValue;
+                    barcodeInput.focus(); // Pastikan tetap fokus ke input agar scanner tetap berfungsi
                 }
-                let form = document.getElementById("absenForm");
-                form.action = formAction;
-                form.submit();
-
-                // Timer delay 2 detik sebelum bisa scan lagi
-                setTimeout(() => {
-                    isScanning = false; // Buka kunci scan setelah 2 detik
-                }, 2000);
-            } else {
-                barcodeInput.focus(); // Pastikan tetap fokus ke input agar scanner tetap berfungsi
-            }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

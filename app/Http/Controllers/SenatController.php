@@ -23,17 +23,20 @@ class SenatController extends Controller
         if ($data->status == 1) {
             $data->update(['status' => 0]);
             return redirect('/input')->with([
-                'message' => 'Anda telah Keluar!',
+                'message' => 'Keluar !',
                 'type' => 'error', // ❌ untuk keluar
-                'mahasiswa' => $data
+                'user_data' => $data,
+                'role' => 'senat',
+
             ]);
 
         } else {
             $data->update(['status' => 1]);
             return redirect('/input')->with([
-                'message' => 'Absen berhasil!',
+                'message' => 'Masuk !',
                 'type' => 'success',
-                'mahasiswa' => $data
+                'user_data' => $data,
+                'role' => 'senat',
             ]);
     }
     }
