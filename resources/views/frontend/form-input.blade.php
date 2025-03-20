@@ -286,7 +286,7 @@
     <div class="container">
         <h1>Scan Untuk Absen</h1>
         <input type="text" id="barcodeInput" autofocus onfocus="this.select()"> <!-- Input disembunyikan -->
-        <p class="decoration">Arahkan scanner barcode ke QR Code</p>
+        <p class="decoration">Arahkan QR Code ke scanner barcode</p>
     </div>
 
     <style>
