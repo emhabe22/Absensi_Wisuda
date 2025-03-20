@@ -16,6 +16,7 @@ class PanitiaController extends Controller
     public function absent($uuid)
     {
         $data = Panitia::where('uuid', $uuid)->first();
+        
         if ($data->status == 1) {
             $data->update(['status' => 0]);
             return redirect('/input')->with([

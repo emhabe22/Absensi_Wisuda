@@ -25,7 +25,7 @@ class OrangTuaController extends Controller
             'message' => 'Anda telah Keluar!',
             'type' => 'error', // ❌ untuk keluar
             'user_data' => $data,
-            'role' => 'senat',
+            'role' => 'orangtua',
         ]);
         
     } else {
@@ -34,7 +34,7 @@ class OrangTuaController extends Controller
             'message' => 'Absen berhasil!',
             'type' => 'success',
             'user_data' => $data,
-            'role' => 'senat',
+            'role' => 'orangtua',
         ]);
 }
     }

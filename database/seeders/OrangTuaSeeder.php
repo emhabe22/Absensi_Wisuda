@@ -53,7 +53,7 @@ class OrangTuaSeeder extends Seeder
                     ->margin(2) // Beri margin agar tidak terlalu rapat
                     ->color(0, 0, 0) // Warna hitam
                     ->backgroundColor(255, 255, 255) // Background putih
-                    ->generate($fileName);
+                    ->generate($parent->id);
 
                 // Pastikan folder tujuan ada, jika tidak buat foldernya
                 $qrDirectory = public_path('qr/qr-orangtua');
