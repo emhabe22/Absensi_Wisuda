@@ -258,7 +258,7 @@
                     heightAuto: false,
                     html: `
                     <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_panitia.png') }}') no-repeat center/cover;">
-                        <div  style="position: absolute; left: 250px; top: 220px; color: black; font-size: 30px; font-weight: bold;">
+                        <div class="text-center" style="position: absolute; left: 250px; top: 220px; color: black; font-size: 30px; font-weight: bold;">
                             ${panitiaData.nama}
                         </div>
                          <div style="position: absolute; left: 900px; top: 80px; color: black; font-size: 20px; font-weight: bold;">
