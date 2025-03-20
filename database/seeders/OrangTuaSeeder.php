@@ -39,8 +39,8 @@ class OrangTuaSeeder extends Seeder
                 // Simpan data orang tua ke database
                 $parent = OrangTua::create($data);
 
-                // Pastikan NIM mahasiswa tersedia
-                $nim = isset($data['nim']) ? strtolower(str_replace([' ', '.', ',', '-'], '_', $data['nim'])) : 'unknown';
+                // Ambil NIM dari objek mahasiswa, bukan dari $data
+                $nim = strtolower(str_replace([' ', '.', ',', '-'], '_', $mahasiswa->nim));
 
                 // Tentukan nama file berdasarkan tipe orang tua
                 $fileName = $parent->id . '_' . ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_') . $nim . '.png';

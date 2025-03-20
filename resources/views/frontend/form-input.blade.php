@@ -182,35 +182,40 @@
             <script>
                 let mahasiswaData = @json(session('user_data'));
                 let totalMahasiswa = @json(session('total_mahasiswa'));
-                let mahasiswaKluar = @json(session('mahasiswa_keluar'));
+                let mahasiswaKeluar = @json(session('mahasiswa_keluar'));
+
+                // Path foto mahasiswa
+                let fotoPath = "{{ url('foto/mahasiswa') }}/" + mahasiswaData.foto;
+
                 Swal.fire({
                     title: @json(session('message')),
                     width: 1100,
                     heightAuto: false,
                     html: `
-                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/tmpilan_mahasiswa.png') }}') no-repeat center/cover;">
-                        <div style="position: absolute; left: 150px; top: 250px;">
-                            <img src="${mahasiswaData.foto}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
-                        </div>4
-                         <div style="position: absolute; right: 7px; top: 77px; color: white; font-size: 22px; font-weight: bold;">
-                         ${mahasiswaKluar}/${totalMahasiswa}
-                        </div>
-                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
-                            ${mahasiswaData.nama}
-                        </div>
-                        <div style="position: absolute; left: 670px; top: 325px; color: white; font-size: 28px; font-weight: bold;">
-                            ${mahasiswaData.nim ?? '-'}
-                        </div>
-                        <div style="position: absolute; left: 610px; top: 440px; color: white; font-size: 28px; font-weight: bold;">
-                            ${mahasiswaData.jurusan ?? '-'}
-                        </div>
-                    </div>
-                `,
+                                <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_mahasiswa.png') }}') no-repeat center/cover;">
+                                    <div style="position: absolute; left: 150px; top: 250px;">
+                                        <img src="${fotoPath}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
+                                    </div>
+                                    <div style="position: absolute; right: 7px; top: 77px; color: white; font-size: 22px; font-weight: bold;">
+                                        ${mahasiswaKeluar}/${totalMahasiswa}
+                                    </div>
+                                    <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                                        ${mahasiswaData.nama}
+                                    </div>
+                                    <div style="position: absolute; left: 670px; top: 325px; color: white; font-size: 28px; font-weight: bold;">
+                                        ${mahasiswaData.nim ?? '-'}
+                                    </div>
+                                    <div style="position: absolute; left: 610px; top: 440px; color: white; font-size: 28px; font-weight: bold;">
+                                        ${mahasiswaData.jurusan ?? '-'}
+                                    </div>
+                                </div>
+                         `,
                     showConfirmButton: false,
                     timer: 4000
                 });
             </script>
         @endif
+
 
         @if (session('role') == 'orangtua')
             <script>
@@ -220,7 +225,7 @@
                     width: 1100,
                     heightAuto: false,
                     html: `
-                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/tampilan_orangtua.png') }}') no-repeat center/cover;">
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_orangtua.png') }}') no-repeat center/cover;">
                         <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
                             ${orangtuaData.nama}
                         </div>
@@ -240,7 +245,7 @@
                     width: 1100,
                     heightAuto: false,
                     html: `
-                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/tmpilan_panitia.png') }}') no-repeat center/cover;">
+                    <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_panitia.png') }}') no-repeat center/cover;">
                         <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
                             ${panitiaData.nama}
                         </div>
@@ -269,7 +274,7 @@
                     width: 1100,
                     heightAuto: false,
                     html: `
-                <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/tmpilan_senat.png') }}') no-repeat center/cover;">
+                <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_senat.png') }}') no-repeat center/cover;">
                     <div style="position: absolute; left: 150px; top: 250px;">
                         <img src="${fotoPath}" alt="Foto Senat" style="width: 120px; height: 150px; border-radius: 10px;">
                     </div>

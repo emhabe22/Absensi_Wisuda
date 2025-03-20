@@ -42,6 +42,7 @@ Route::get('/editmahasiswa', fn() => view('frontend.edit-mahasiswa'));
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('mahasiswa.absent');
 Route::post('/parent-absent/{id}', [OrangTuaController::class, 'absent'])->name('orangtua.absent');
 Route::post('/senat-absent/{uuid}', [SenatController::class, 'absent'])->name('senat.absent');
+Route::post('/panitia-absent/{uuid}', [PanitiaController::class, 'absent'])->name('panitia.absent');
 
 // Senat
 Route::get('/senat', [SenatController::class, 'senat'])->name('senat');
