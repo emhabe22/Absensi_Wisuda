@@ -39,7 +39,7 @@
                                     <tr>
                                         <td>{{ $senat->uuid }}</td>
                                         <td>
-                                            <img src="{{ $senat->foto ? asset('storage/senat/' . $senat->foto) : asset('assets/images/default-profile.png') }}"
+                                            <img src="{{ $senat->foto ? asset('foto/senat/' . $senat->foto) : asset('assets/images/default-profile.png') }}"
                                                  width="80"
                                                  height="80"
                                                  class="img-thumbnail">

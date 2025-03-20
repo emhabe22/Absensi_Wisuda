@@ -1,9 +1,5 @@
 @extends('frontend.dashboard')
 @section('content')
-    <!--Data Tables -->
-    <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
-    {{-- end --}}
     <div class="page-content-wrapper">
         <div class="page-content">
             <!--breadcrumb-->
@@ -34,8 +30,8 @@
                         <table id="panitiaTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>                        
-                                    <th>Seksi</th>                        
+                                    <th>Nama</th>
+                                    <th>Seksi</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -65,17 +61,17 @@
             </div>
         </div>
     </div>
-    {{-- js --}}
-    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <!-- jQuery harus dimuat pertama kali -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- DataTables Initialization -->
     <script>
         $(document).ready(function() {
-            //Default data table
             $('#panitiaTable').DataTable();
-            var table = $('#example2').DataTable({
-                lengthChange: false,
-                buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
-            });
-            table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection

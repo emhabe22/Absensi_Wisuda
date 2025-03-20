@@ -20,32 +20,29 @@ Route::post('/', [LoginController::class, 'loginPost']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-    // Mahasiswa
-    Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa');
-    Route::get('/mahasiswa/edit/{nim}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
-    Route::post('/mahasiswa/update/{nim}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
+// Mahasiswa
+Route::get('/mahasiswa', [MahasiswaController::class, 'mahasiswa'])->name('mahasiswa');
+Route::get('/mahasiswa/edit/{nim}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
+Route::post('/mahasiswa/update/{nim}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
 
-    // Orang Tua
-    Route::get('/orangtua', [OrangTuaController::class, 'orangtua'])->name('orangtua');
+// Orang Tua
+Route::get('/orangtua', [OrangTuaController::class, 'orangtua'])->name('orangtua');
 
-    // Panitia
-    Route::get('/panitia', [PanitiaController::class, 'panitia'])->name('panitia');
+// Panitia
+Route::get('/panitia', [PanitiaController::class, 'panitia'])->name('panitia');
 
-    // Form Input
-    Route::get('/input', fn() => view('frontend.form-input'));
+// Form Input
+Route::get('/input', fn() => view('frontend.form-input'));
 
-    // Edit Mahasiswa
-    Route::get('/editmahasiswa', fn() => view('frontend.edit-mahasiswa'));
+// Edit Mahasiswa
+Route::get('/editmahasiswa', fn() => view('frontend.edit-mahasiswa'));
 
 
 // Absent Routes
 Route::post('/absent/{nim}', [MahasiswaController::class, 'absent'])->name('mahasiswa.absent');
 Route::post('/parent-absent/{id}', [OrangTuaController::class, 'absent'])->name('orangtua.absent');
 Route::post('/senat-absent/{uuid}', [SenatController::class, 'absent'])->name('senat.absent');
-Route::post('/rektorat-absent/{uuid}', [RektoratController::class, 'absent'])->name('rektorat.absent');
+Route::post('/panitia-absent/{uuid}', [PanitiaController::class, 'absent'])->name('panitia.absent');
 
 // Senat
 Route::get('/senat', [SenatController::class, 'senat'])->name('senat');
-
-// Rektorat
-Route::get('/rektorat', [RektoratController::class, 'rektorat'])->name('rektorat');

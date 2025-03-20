@@ -1,10 +1,5 @@
 @extends('frontend.dashboard')
 @section('content')
-    <!--Data Tables -->
-    <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
-    {{-- end --}}
-
     <div class="page-wrapper">
         <!--page-content-wrapper-->
         <div class="page-content-wrapper">
@@ -21,22 +16,6 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="ms-auto">
-                        <div class="btn-group">
-
-                            <!-- <button type="button"
-                                                class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                                                data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                                            </button> -->
-                            <!-- <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                                                    href="javascript:;">Action</a>
-                                                <a class="dropdown-item" href="javascript:;">Another action</a>
-                                                <a class="dropdown-item" href="javascript:;">Something else here</a>
-                                                <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-                                                    link</a>
-                                            </div> -->
-                        </div>
-                    </div>
                 </div>
                 <!--end breadcrumb-->
                 <div class="card">
@@ -46,7 +25,7 @@
                         </div>
                         <hr />
                         <div class="table-responsive">
-                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <table id="mahasiswaTabel" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
@@ -67,8 +46,8 @@
                                     @foreach ($data as $mhs)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('storage/mahasiswa' . $mhs->foto) }}" alt="Foto Mahasiswa"
-                                                    width="100">
+                                                <img src="{{ $mhs->foto ? asset('foto/mahasiswa/' . $mhs->foto) : asset('assets/images/default-profile.png') }}"
+                                                    width="80" height="80" class="img-thumbnail">
                                             </td>
                                             <td>{{ $mhs->nama }}</td>
                                             <td>{{ $mhs->nim }}</td>
@@ -102,17 +81,17 @@
         <!--end page-content-wrapper-->
     </div>
 
-    {{-- js --}}
-    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
-    {{-- <script>
-		$(document).ready(function () {
-			//Default data table
-			$('#example').DataTable();
-			var table = $('#example2').DataTable({
-				lengthChange: false,
-				buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
-			});
-			table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-		});
-	</script> --}}
+    <!-- jQuery harus dimuat pertama kali -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- DataTables Initialization -->
+    <script>
+        $(document).ready(function() {
+            $('#mahasiswaTabel').DataTable();
+        });
+    </script>
 @endsection

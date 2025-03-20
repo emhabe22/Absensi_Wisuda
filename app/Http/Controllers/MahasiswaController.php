@@ -21,34 +21,40 @@ class MahasiswaController extends Controller
     public function absent($nim)
     {
         $data = Mahasiswa::where('nim', $nim)->first();
-        //Mahasiswa
-     
 
-        
+        // Pastikan data ditemukan sebelum mengakses properti status
+        if (!$data) {
+            return redirect('/input')->with([
+                'message' => 'Data dengan NIM tersebut tidak ditemukan!',
+                'type' => 'error'
+            ]);
+        }
+
         if ($data->status == 1) {
             $data->update(['status' => 0]);
-            $mahasiswaKluar = Mahasiswa::where('status', 0)->count();
+            $mahasiswaKeluar = Mahasiswa::where('status', 0)->count();
             $totalMahasiswa = Mahasiswa::count();
+
             return redirect('/input')->with([
                 'message' => 'Keluar!',
                 'type' => 'error', // ❌ untuk keluar
                 'user_data' => $data,
                 'role' => 'mahasiswa',
                 'total_mahasiswa' => $totalMahasiswa,
-                'mahasiswa_keluar' => $mahasiswaKluar
+                'mahasiswa_keluar' => $mahasiswaKeluar
             ]);
-          
         } else {
             $data->update(['status' => 1]);
-            $mahasiswaKluar = Mahasiswa::where('status', 0)->count();
+            $mahasiswaKeluar = Mahasiswa::where('status', 0)->count();
             $totalMahasiswa = Mahasiswa::count();
+
             return redirect('/input')->with([
                 'message' => 'Masuk!',
                 'type' => 'success',
                 'user_data' => $data,
-               'role' => 'mahasiswa',
-               'total_mahasiswa' => $totalMahasiswa,
-               'mahasiswa_keluar' => $mahasiswaKluar
+                'role' => 'mahasiswa',
+                'total_mahasiswa' => $totalMahasiswa,
+                'mahasiswa_keluar' => $mahasiswaKeluar
             ]);
         }
     }
