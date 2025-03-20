@@ -26,7 +26,7 @@ class SenatController extends Controller
 
         if ($data->status == 1) {
             $data->update(['status' => 0]);
-            $senat_keluar = Senat::where('status', 0)->count();
+            $senat_keluar = Senat::where('status', 1)->count();
             $totalsenat = Senat::count();
             return redirect('/input')->with([
                 'message' => 'Keluar !',
@@ -38,7 +38,7 @@ class SenatController extends Controller
             ]);
         } else {
             $data->update(['status' => 1]);
-            $senat_keluar = Senat::where('status', 0)->count();
+            $senat_keluar = Senat::where('status', 1)->count();
             $totalsenat = Senat::count();
             return redirect('/input')->with([
                 'message' => 'Masuk !',

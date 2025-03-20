@@ -103,7 +103,7 @@ class PanitiaSeeder extends Seeder
             ['nama' => 'Duta Kampus 2(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
             ['nama' => 'Duta Kampus 3(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
             ['nama' => 'Duta Kampus 4(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
-
+            
             // Protokol
             ['nama' => 'Ardiyanto Maksimilianus Gai, ST., M.Si.', 'section' => 'Protokol - Ketua'],
             ['nama' => 'Krisna Febrian Anugrahputra, ST., MT., M.Sc.', 'section' => 'Protokol'],
