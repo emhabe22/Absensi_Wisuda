@@ -179,7 +179,6 @@ class PanitiaSeeder extends Seeder
             if (!file_exists($qrDirectory)) {
                 mkdir($qrDirectory, 0777, true);
             }
-
             // Buat QR Code (berisi UUID tanpa "absent")
             $qrPath = 'qr/qr-panitia/' . $fileName; // Path penyimpanan
             $qrCode = QrCode::format('png')
@@ -188,7 +187,7 @@ class PanitiaSeeder extends Seeder
                 ->margin(2) // Beri margin agar tidak terlalu rapat
                 ->color(0, 0, 0) // Warna hitam
                 ->backgroundColor(255, 255, 255) // Background putih
-                ->generate('panitia-absent/' . $uuid); // Hanya path, tanpa domain
+                ->generate($uuid); // Hanya path, tanpa domain
 
             // Simpan QR Code langsung ke folder public/qr/qr-panitia/
             file_put_contents($qrDirectory . '/' . $fileName, $qrCode);
