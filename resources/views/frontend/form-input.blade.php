@@ -328,7 +328,6 @@
                     let barcodeValue = barcodeInput.value.trim();
                     console.log("Barcode terbaca:", barcodeValue);
                     barcodeInput.value = ""; // Kosongkan input setelah scan
-
                     let formAction;
                     if (barcodeValue.startsWith("S")) {
                         formAction = "/senat-absent/" + barcodeValue;

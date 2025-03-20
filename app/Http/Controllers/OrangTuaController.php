@@ -24,7 +24,8 @@ class OrangTuaController extends Controller
         return redirect('/input')->with([
             'message' => 'Anda telah Keluar!',
             'type' => 'error', // ❌ untuk keluar
-            'mahasiswa' => $data
+            'user_data' => $data,
+            'role' => 'senat',
         ]);
         
     } else {
@@ -32,7 +33,8 @@ class OrangTuaController extends Controller
         return redirect('/input')->with([
             'message' => 'Absen berhasil!',
             'type' => 'success',
-            'mahasiswa' => $data
+            'user_data' => $data,
+            'role' => 'senat',
         ]);
 }
     }
