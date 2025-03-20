@@ -5,12 +5,12 @@
             </a>
         </div>
         <div class="flex-grow-1 search-bar">
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <button class="btn btn-search-back search-arrow-back" type="button"><i
                         class="bx bx-arrow-back"></i></button>
                 <input type="text" class="form-control" placeholder="search" />
                 <button class="btn btn-search" type="button"><i class="lni lni-search-alt"></i></button>
-            </div>
+            </div> -->
         </div>
         <div class="right-topbar ms-auto">
             <ul class="navbar-nav">
@@ -25,9 +25,9 @@
                         <div class="d-flex user-box align-items-center">
                             <div class="user-info">
                                 <p class="user-name mb-0">Admin</p>
-                                <p class="designattion mb-0">Online</p>
+                                
                             </div>
-                            <img src="{{ asset('assets/images/avatars/avatar-1.png') }}" class="user-img"
+                            <img src="{{ asset('assets/images/avatars/fotolah.png') }}" class="user-img"
                                 alt="user avatar">
                         </div>
                     </a>
