@@ -336,14 +336,12 @@
                         formAction = "/rektorat-absent/" + barcodeValue;
                     } else if (barcodeValue.startsWith("P")) {
                         formAction = "/panitia-absent/" + barcodeValue;
-                    } else if (barcodeValue.startsWith("ayah_") || barcodeValue.startsWith("ibu_")) {
-                        formAction = "/parent-absent/" + barcodeValue;
-                    } else if (barcodeValue.length >= 7) {
+                    }  else if (barcodeValue.length >= 7) {
                         formAction = "/absent/" + barcodeValue;
                     } else {
                         // Handle kondisi jika tidak sesuai dengan aturan di atas
-                        formAction = "/unknown-barcode/" + barcodeValue;
-                        alert("Barcode tidak dikenali!");
+                        formAction = "/parent-absent/" + barcodeValue;
+                        
                     }
                     let form = document.getElementById("absenForm");
                     form.action = formAction;
