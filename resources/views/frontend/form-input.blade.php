@@ -186,17 +186,16 @@
 
                 // Path foto mahasiswa
                 let fotoPath = "{{ url('foto/mahasiswa') }}/" + mahasiswaData.foto;
-
                 Swal.fire({
                     title: @json(session('message')),
                     width: 1100,
                     heightAuto: false,
                     html: `
                                 <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_mahasiswa.png') }}') no-repeat center/cover;">
-                                    <div style="position: absolute; left: 150px; top: 250px;">
-                                        <img src="${fotoPath}" alt="Foto Mahasiswa" style="width: 120px; height: 150px; border-radius: 10px;">
+                                    <div style="position: absolute; left: 80px; top: 150px;">
+                                        <img src="${fotoPath}" alt="Foto Mahasiswa" style="width: 300px; height: 300px; border-radius: 10px;">
                                     </div>
-                                    <div style="position: absolute; right: 7px; top: 77px; color: white; font-size: 22px; font-weight: bold;">
+                                    <div style="position: absolute; right: 7px; top: 77px; color: white; font-size: 20px; font-weight: bold;">
                                         ${mahasiswaKeluar}/${totalMahasiswa}
                                     </div>
                                     <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
@@ -220,14 +219,19 @@
         @if (session('role') == 'orangtua')
             <script>
                 let orangtuaData = @json(session('user_data'));
+                let total_orangtua = @json(session('total_orangtua'));
+                let orangtua_keluar = @json(session('orangtua_keluar'));
                 Swal.fire({
                     title: @json(session('message')),
                     width: 1100,
                     heightAuto: false,
                     html: `
                     <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_orangtua.png') }}') no-repeat center/cover;">
-                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                     <div style="position: absolute; left: 280px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
                             ${orangtuaData.nama}
+                        </div>
+                        <div style="position: absolute; left: 900px; top: 78px; color: white; font-size: 22px; font-weight: bold;">
+                            ${orangtua_keluar}/${total_orangtua}
                         </div>
                     </div>
                 `,
@@ -240,17 +244,22 @@
         @if (session('role') == 'panitia')
             <script>
                 let panitiaData = @json(session('user_data'));
+                let panitia_keluar = @json(session('panitia_keluar'));
+                let total_panitia = @json(session('total_panitia'));
                 Swal.fire({
                     title: @json(session('message')),
                     width: 1100,
                     heightAuto: false,
                     html: `
                     <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_panitia.png') }}') no-repeat center/cover;">
-                        <div style="position: absolute; left: 525px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
+                        <div style="position: absolute; left: 250px; top: 220px; color: white; font-size: 28px; font-weight: bold;">
                             ${panitiaData.nama}
                         </div>
-                        <div style="position: absolute; left: 610px; top: 350px; color: white; font-size: 28px; font-weight: bold;">
-                            Seksi: ${panitiaData.seksi ?? '-'}
+                         <div style="position: absolute; left: 900px; top: 80px; color: white; font-size: 20px; font-weight: bold;">
+                           ${panitia_keluar}/${total_panitia}
+                        </div>
+                        <div style="position: absolute; left: 350px; top: 390px; color: white; font-size: 28px; font-weight: bold;">
+                             ${panitiaData.section ?? '-'}
                         </div>
                     </div>
                 `,
@@ -275,8 +284,8 @@
                     heightAuto: false,
                     html: `
                 <div style="position: relative; width: 1000px; height: 600px; overflow: hidden; background: url('{{ asset('tampilan/template_senat.png') }}') no-repeat center/cover;">
-                    <div style="position: absolute; left: 150px; top: 250px;">
-                        <img src="${fotoPath}" alt="Foto Senat" style="width: 120px; height: 150px; border-radius: 10px;">
+                    <div style="position: absolute; left: 110px; top: 170px; ">
+                        <img src="${fotoPath}" alt="Foto Senat" style="width: 300px; height: 300px; border-radius: 10px;">
                     </div>
                     <div style="position: absolute; right: 30px; top: 118px; color: #001e3f; font-size: 22px; font-weight: bold;">
                         ${senat_keluar}/${total_senat}
