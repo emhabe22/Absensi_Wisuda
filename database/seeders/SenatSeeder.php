@@ -168,7 +168,10 @@ class SenatSeeder extends Seeder
         foreach ($senat as $data) {
             $senats = Senat::create($data);
             $dataId = $senats->uuid;
-            $qrPath = 'qr/qr-senat/' . $dataId. '_'. $senats->nama . '.png'; // Path yang akan disimpan ke database
+
+            // Buat nama file sesuai format uuid_nama.png
+            $fileName = $dataId . '_' . str_replace(' ', '_', $senats->nama) . '.png';
+            $qrPath = 'qr/qr-senat/' . $fileName; // Path yang akan disimpan ke database
 
             // Generate QR Code
             $qrCode = QrCode::format('png')
@@ -187,12 +190,13 @@ class SenatSeeder extends Seeder
                 mkdir($qrDirectory, 0777, true);
             }
 
-            // Simpan QR Code langsung ke folder public/qr/qr-senat/
-            file_put_contents($qrDirectory . '/' . $dataId . '.png', $qrCode);
+            // Simpan QR Code dengan nama file yang sudah diperbaiki
+            file_put_contents($qrDirectory . '/' . $fileName, $qrCode);
 
             // Simpan path QR Code ke database
             $senats->update(['qr_code' => $qrPath]);
         }
+
 
     }
 }
