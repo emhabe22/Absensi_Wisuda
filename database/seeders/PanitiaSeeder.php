@@ -52,7 +52,7 @@ class PanitiaSeeder extends Seeder
             ['nama' => 'Dr. Eko Yohanes, ST., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
             ['nama' => 'Tutut Nani Prihatmi, S.S., S.Pd, Md', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
             ['nama' => 'Dr. Irmalia Suryani Faradisa, ST., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
-            ['nama' => 'Sotoyhadi, ST., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
+            ['nama' => 'Setyohadi, ST., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
             ['nama' => 'Dr. Ir. Iftitah Runawa., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
             ['nama' => 'Emmalia Adriantantri, ST., MM', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
             ['nama' => 'Rini Kartika Dewi, ST., MT.', 'section' => 'Seksi Pengaturan dan Persiapan Wisudawan'],
@@ -104,7 +104,7 @@ class PanitiaSeeder extends Seeder
             ['nama' => 'Duta Kampus 2(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
             ['nama' => 'Duta Kampus 3(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
             ['nama' => 'Duta Kampus 4(4) Mahasiswa', 'section' => 'Penerima Tamu Umum'],
-            
+
             // Protokol
             ['nama' => 'Ardiyanto Maksimilianus Gai, ST., M.Si.', 'section' => 'Protokol - Ketua'],
             ['nama' => 'Krisna Febrian Anugrahputra, ST., MT., M.Sc.', 'section' => 'Protokol'],
