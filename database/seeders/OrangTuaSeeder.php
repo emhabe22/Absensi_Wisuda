@@ -43,7 +43,7 @@ class OrangTuaSeeder extends Seeder
                 $nim = strtolower(str_replace([' ', '.', ',', '-'], '_', $mahasiswa->nim));
 
                 // Tentukan nama file berdasarkan tipe orang tua
-                $fileName = $parent->id . '_' . ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_') . $nim . '.png';
+                $fileName = $parent->id . '_' . ($data['tipe'] === 'A' ? 'ayah_' : 'ibu_').'_' . $mahasiswa->nama . '_'. $nim . '.png';
                 $qrPath = 'qr/qr-orangtua/' . $fileName; // Path penyimpanan
 
                 // Generate QR Code

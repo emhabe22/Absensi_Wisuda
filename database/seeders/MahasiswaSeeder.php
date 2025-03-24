@@ -2621,7 +2621,7 @@ class MahasiswaSeeder extends Seeder
 
         foreach ($mahasiswa as $mhs) {
             $data = $mhs['nim']; // Hanya encode NIM tanpa URL
-            $qrFileName = $mhs['nim'] . '.png'; // Nama file QR Code
+            $qrFileName = $mhs['nama'] .'_'. $mhs['nim'] . '.png'; // Nama file QR Code
             $qrPath = 'qr/qr-mahasiswa/' . $qrFileName; // Path penyimpanan
 
             // Generate QR Code

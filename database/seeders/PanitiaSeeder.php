@@ -29,6 +29,7 @@ class PanitiaSeeder extends Seeder
             ['nama' => 'Dr. Aladin Eko Purkuncoro, ST., MT.', 'section' => 'Ketua'],
             ['nama' => 'Dr. Lila Ayn Ratna Winanda, ST., MT.', 'section' => 'Sekretaris'],
             ['nama' => 'Dr. Dimas Indra Laksamana, ST., MT.', 'section' => 'Bendahara'],
+            ['nama' => 'Titik Rembati, SE', 'section' => 'Bendahara'],
             ['nama' => 'Suryo Adi Wibowo, ST., MT.', 'section' => 'Bendahara'],
             ['nama' => 'Ir. Munasih, MT.', 'section' => 'Bendahara'],
 
@@ -169,7 +170,7 @@ class PanitiaSeeder extends Seeder
             $panitia = Panitia::create($data);
 
             // Bentuk nama file: uuid.png
-            $fileName = "{$uuid}.png";
+            $fileName = "{$data['nama']}_{$uuid}.png";
 
             // Perbarui nama foto di database
             $panitia->update(['foto' => $fileName]);
