@@ -168,7 +168,7 @@ class SenatSeeder extends Seeder
         foreach ($senat as $data) {
             $senats = Senat::create($data);
             $dataId = $senats->uuid;
-            $qrPath = 'qr/qr-senat/' . $dataId . '.png'; // Path yang akan disimpan ke database
+            $qrPath = 'qr/qr-senat/' . $dataId. '_'. $senats->nama . '.png'; // Path yang akan disimpan ke database
 
             // Generate QR Code
             $qrCode = QrCode::format('png')
