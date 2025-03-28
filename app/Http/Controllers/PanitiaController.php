@@ -16,7 +16,6 @@ class PanitiaController extends Controller
     public function absent($uuid)
     {
         $data = Panitia::where('uuid', $uuid)->first();
-        dd($data);
         if ($data->status == 1) {
             $data->update(['status' => 0]);
             $panitia_keluar = Panitia::where('status', 1)->count();
@@ -29,7 +28,6 @@ class PanitiaController extends Controller
                 'total_panitia' => $total_panitia,
                 'panitia_keluar' => $panitia_keluar
             ]);
-            
         } else {
             $data->update(['status' => 1]);
             $panitia_keluar = Panitia::where('status', 1)->count();
@@ -42,6 +40,6 @@ class PanitiaController extends Controller
                 'total_panitia' => $total_panitia,
                 'panitia_keluar' => $panitia_keluar
             ]);
-    }
+        }
     }
 }
